@@ -1,0 +1,41 @@
+@use 'sass:math';
+
+@import '../../styles/style.scss';
+
+.main {
+  // .main__container
+
+  &__container {
+  }
+
+  // .main__content
+
+  &__content {
+    @include adaptiveValue('padding-top', 80, 40);
+  }
+}
+.content {
+  // .content__heading
+
+  &__heading {
+
+
+  }
+
+  // .content__error
+
+  &__error {
+    @include adaptiveValue('font-size', 80, 36);
+    @include adaptiveValue("padding-bottom", 40, 20);
+    color: red;
+  }
+
+  // .content__link
+
+  &__link {
+    padding: 10px 20px;
+    background-color: $mygreen;
+    
+    @include adaptiveValue("font-size", 28,22 );
+  }
+}

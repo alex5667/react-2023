@@ -1,0 +1,41 @@
+@use 'sass:math';
+
+@import '../../styles/style.scss';
+
+.main {
+
+  // .main__container
+
+  &__container {
+  }
+
+  // .main__content
+
+  &__content {
+    @include adaptiveValue("padding-top", 60, 40);
+
+  }
+}
+.content {
+
+  // .content__heading
+
+  &__heading {
+    @include adaptiveValue("font-size", 28, 20);
+    @include adaptiveValue("padding-bottom", 30, 20);
+  }
+
+  // .content__text
+
+  &__text {
+    max-width: 80%;
+    margin: 0 auto;
+    p{
+      line-height: math.div(24 , 16);
+      &:not(:last-child) {
+        margin-bottom: rem(25);
+      }
+    }
+    
+  }
+}
