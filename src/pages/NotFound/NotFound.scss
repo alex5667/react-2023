@@ -10,20 +10,27 @@
 
   // .main__content
 
-  &__content {
+  &__content-not-found {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center
   }
 }
 .content {
   // .content__heading
 
-  &__heading {
+  &__heading-not-found {
     @include adaptiveValue('padding-top', 80, 40);
-
+    @include adaptiveValue("font-size", 36, 22);
+    @include adaptiveValue("padding-bottom", 60, 30);
+    
   }
 
   // .content__error
 
-  &__error {
+  &__error-not-found {
     @include adaptiveValue('font-size', 80, 36);
     @include adaptiveValue("padding-bottom", 40, 20);
     color: red;
