@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import NavBar from './NavBar';
+import NavBar from '.';
 import { ABOUT_ROUTE, HOME_ROUTE } from 'utils/consts';
 
 describe('NavBar', () => {
