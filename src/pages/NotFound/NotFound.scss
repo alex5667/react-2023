@@ -11,14 +11,13 @@
   // .main__content
 
   &__content {
-    @include adaptiveValue('padding-top', 80, 40);
   }
 }
 .content {
   // .content__heading
 
   &__heading {
-
+    @include adaptiveValue('padding-top', 80, 40);
 
   }
 
@@ -32,10 +31,5 @@
 
   // .content__link
 
-  &__link {
-    padding: 10px 20px;
-    background-color: $mygreen;
-    
-    @include adaptiveValue("font-size", 28,22 );
-  }
+
 }

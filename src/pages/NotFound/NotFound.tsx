@@ -1,7 +1,7 @@
+import ButtonLink from 'components/UI/button/ButtonLink/ButtonLink';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { HOME_ROUTE } from 'utils/consts';
-import './Error.scss';
+import './NotFound.scss';
 
 const Error = () => {
   return (
@@ -9,9 +9,7 @@ const Error = () => {
       <div className="main__content">
         <h2 className="content__heading">Page Not Found</h2>
         <p className="content__error">404</p>
-        <NavLink to={HOME_ROUTE} className="content__link">
-          Back to Home
-        </NavLink>
+        <ButtonLink to={HOME_ROUTE}>Back to Home</ButtonLink>
       </div>
     </div>
   );

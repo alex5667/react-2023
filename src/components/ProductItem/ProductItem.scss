@@ -4,7 +4,6 @@
 .product {
   position: relative;
   width: 100%;
-  padding: 5px 10px;
   cursor: pointer;
   &.small{
     width: 16.66%;
@@ -81,10 +80,9 @@
   &__title {
     line-height: 120%;
     margin-bottom: rem(10) ;
-    min-height: rem(32);
+    min-height: rem(40);
     & .visible {
       min-height: rem(16);
-
     }
   }
 

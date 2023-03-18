@@ -5,9 +5,9 @@ const About = () => {
   return (
     <div>
       <div className="main__container">
-        <div className="main__content">
-          <h2 className="content__heading">Welcome to our online store!</h2>
-          <div className="content__text">
+        <div className="main__content-about">
+          <h2 className="content__heading-about">Welcome to our online store!</h2>
+          <div className="content__text-about">
             <p>
               We are a team of enthusiasts who are passionate about bringing you the best products
               and customer service. Our goal is to provide you with an exceptional shopping

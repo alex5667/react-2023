@@ -2,8 +2,8 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 import React from 'react';
 import Home from 'pages/Home/Home';
 import About from 'pages/About/About';
-import Error from 'pages/404/Error';
-import { ABOUT_ROUTE, ERROR_ROUTE, HOME_ROUTE } from 'utils/consts';
+import NotFound from 'pages/NotFound/NotFound';
+import { ABOUT_ROUTE, NOTFOUND_ROUTE, HOME_ROUTE } from 'utils/consts';
 import Layout from 'components/Layout/Layout';
 
 export const router = createBrowserRouter(
@@ -11,7 +11,7 @@ export const router = createBrowserRouter(
     <Route path={HOME_ROUTE} element={<Layout />}>
       <Route index element={<Home />} />
       <Route path={ABOUT_ROUTE} element={<About />} />
-      <Route path={ERROR_ROUTE} element={<Error />} />
+      <Route path={NOTFOUND_ROUTE} element={<NotFound />} />
     </Route>
   )
 );
