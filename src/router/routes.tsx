@@ -1,8 +1,8 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import React from 'react';
 import Home from 'pages/Home/Home';
-import About from 'pages/About/About';
-import NotFound from 'pages/NotFound/NotFound';
+import About from 'pages/About';
+import NotFound from 'pages/NotFound';
 import { ABOUT_ROUTE, NOTFOUND_ROUTE, HOME_ROUTE } from 'utils/consts';
 import Layout from 'components/Layout/Layout';
 

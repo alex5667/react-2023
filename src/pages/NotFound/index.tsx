@@ -1,4 +1,4 @@
-import ButtonLink from 'components/UI/button/ButtonLink/ButtonLink';
+import ButtonLink from 'components/UI/button/ButtonLink';
 import React from 'react';
 import { HOME_ROUTE } from 'utils/consts';
 import './NotFound.scss';

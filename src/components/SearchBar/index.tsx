@@ -18,14 +18,18 @@ export class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.setSearchQuery = this.setSearchQuery.bind(this);
   }
 
+  componentDidMount(): void {
+    const search = localStorage.getItem('search') ? localStorage.getItem('search') : '';
+    this.setSearchQuery(search as string);
+  }
+
   updateSearchedProducts(searchResult: Product[]): void {
     this.props.setSearchedProducts(searchResult);
   }
 
-  setSearchQuery(e: React.ChangeEvent<HTMLInputElement>): void {
-    const searchQuery = e.target.value.toLowerCase();
+  setSearchQuery(e: React.ChangeEvent<HTMLInputElement> | string): void {
+    const searchQuery = typeof e === 'string' ? e : e.target.value.toLowerCase();
     this.setState({ searchQuery });
-
     if (searchQuery) {
       const searchResult: Product[] = this.props.products.filter((product) => {
         const title: string = product.title.toLowerCase();
@@ -35,14 +39,15 @@ export class SearchBar extends Component<SearchBarProps, SearchBarState> {
         const isExist = (prop: string): boolean => prop.indexOf(searchQuery) > -1;
         return isExist(category) || isExist(brand) || isExist(description) || isExist(title);
       });
-      if (searchResult.length) {
-        this.updateSearchedProducts(searchResult);
-      } else {
-        this.updateSearchedProducts(this.props.products);
-      }
+      localStorage.setItem('search', searchQuery);
+      this.updateSearchedProducts(searchResult);
     } else {
       this.updateSearchedProducts(this.props.products);
     }
+  }
+
+  componentWillUnmount(): void {
+    localStorage.setItem('search', this.state.searchQuery);
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { ProductsList } from 'components/ProductsList/ProductsList';
+import { ProductsList } from 'components/ProductsList';
 import React, { Component } from 'react';
 import './Home.scss';
 import products from 'db/products';

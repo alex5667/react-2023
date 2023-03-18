@@ -6,7 +6,7 @@ type ButtonLinkProps = NavLinkProps;
 
 const ButtonLink: FC<ButtonLinkProps> = ({ children, ...rest }) => {
   return (
-    <NavLink className={cl.btnLink} {...rest}>
+    <NavLink data-testid="button-link" className={cl.btnLink} {...rest}>
       {children}
     </NavLink>
   );

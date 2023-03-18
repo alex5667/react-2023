@@ -5,7 +5,7 @@ import './NavBar.scss';
 
 const NavBar = () => {
   return (
-    <div className="header__container">
+    <div data-testid="router-provider" className="header__container">
       <div className="header__logo">
         <h1 className="logo__h1">Online-store</h1>
       </div>

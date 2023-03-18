@@ -8,7 +8,7 @@ interface ItemProps {
 
 const ProductItem: FC<ItemProps> = ({ product }) => {
   return (
-    <article className="product" id={product.id.toString()}>
+    <article data-testid="product-item" className="product" id={product.id.toString()}>
       <div className="product__content">
         <div className="product__img">
           <img src={product.thumbnail} alt="Product"></img>
