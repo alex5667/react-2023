@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchInput from 'components/UI/input/SearchInput';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 
 interface SearchBarState {
   searchQuery: string;
@@ -15,19 +15,19 @@ export class SearchBar extends Component<SearchBarProps, SearchBarState> {
     this.state = {
       searchQuery: '',
     };
-    this.setSearchQuery = this.setSearchQuery.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount(): void {
     const search = localStorage.getItem('search') ? localStorage.getItem('search') : '';
-    this.setSearchQuery(search as string);
+    this.handleSearch(search as string);
   }
 
   updateSearchedProducts(searchResult: Product[]): void {
     this.props.setSearchedProducts(searchResult);
   }
 
-  setSearchQuery(e: React.ChangeEvent<HTMLInputElement> | string): void {
+  handleSearch(e: React.ChangeEvent<HTMLInputElement> | string): void {
     const searchQuery = typeof e === 'string' ? e : e.target.value.toLowerCase();
     this.setState({ searchQuery });
     if (searchQuery) {
@@ -54,7 +54,7 @@ export class SearchBar extends Component<SearchBarProps, SearchBarState> {
     return (
       <div className="content__search-filter">
         <SearchInput
-          onChange={this.setSearchQuery}
+          onChange={this.handleSearch}
           value={this.state.searchQuery}
           placeholder="Search product"
         />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ProductItem from './index';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 
 describe('ProductItem', () => {
   const product: Product = {

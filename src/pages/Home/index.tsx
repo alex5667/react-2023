@@ -2,7 +2,7 @@ import { ProductsList } from 'components/ProductsList';
 import React, { Component } from 'react';
 import './Home.scss';
 import products from 'db/products';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 import SearchBar from 'components/SearchBar';
 
 interface HomeState {

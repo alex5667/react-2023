@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 import './ProductItem.scss';
 
 interface ItemProps {
@@ -14,7 +14,7 @@ const ProductItem: FC<ItemProps> = ({ product }) => {
           <img src={product.thumbnail} alt="Product"></img>
         </div>
         <div className="product__main">
-          <h3 className="product__title">{product.title}</h3>
+          <h3 className="product__title">{product.title.toLocaleUpperCase()}</h3>
           <div className="product__description">
             <p className="product__descriptions">
               <span>Description:</span> {product.description}

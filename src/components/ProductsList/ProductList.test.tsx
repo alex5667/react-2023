@@ -1,7 +1,7 @@
 import React from 'react';
 import { queryAllByTestId, render } from '@testing-library/react';
 import ProductsList from '.';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 
 const products: Product[] = [
   {

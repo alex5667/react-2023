@@ -6,9 +6,9 @@ import './NavBar.scss';
 const NavBar = () => {
   return (
     <div data-testid="router-provider" className="header__container">
-      <div className="header__logo">
+      <NavLink to={HOME_ROUTE} className="header__logo">
         <h1 className="logo__h1">Online-store</h1>
-      </div>
+      </NavLink>
       <div className="header__menu menu">
         <button type="button" className="menu__icon icon-menu">
           <span></span>

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchBar from '.';
-import { Product } from 'db/products';
+import { Product } from '../../models/product';
 import 'jest-localstorage-mock';
 
 describe('SearchBar', () => {
