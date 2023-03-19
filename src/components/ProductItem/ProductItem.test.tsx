@@ -26,7 +26,7 @@ describe('ProductItem', () => {
 
   it('should render product title', () => {
     render(<ProductItem product={product} />);
-    expect(screen.getByText(product.title)).toBeInTheDocument();
+    expect(screen.getByText(/iPhone 9/i)).toBeInTheDocument();
   });
 
   it('should render product description', () => {
