@@ -12,8 +12,9 @@ describe('NavBar', () => {
         <NavBar />
       </BrowserRouter>
     );
+    const homeLink = screen.getByText(/Home/i);
+
     await waitFor(() => {
-      const homeLink = screen.getByText(/Home/i);
       userEvent.click(homeLink);
       expect(window.location.pathname).toBe(HOME_ROUTE);
     });
