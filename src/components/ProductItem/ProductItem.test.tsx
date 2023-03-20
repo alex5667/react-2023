@@ -36,7 +36,6 @@ describe('ProductItem', () => {
 
   it('should render product category', () => {
     render(<ProductItem product={product} />);
-    screen.debug();
     expect(screen.getByText(/smartphones/i)).toBeInTheDocument();
   });
 
