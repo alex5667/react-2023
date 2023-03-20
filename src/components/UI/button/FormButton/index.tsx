@@ -1,16 +1,15 @@
-import React, { MouseEvent, FC } from 'react';
+import React, { FC } from 'react';
 import cl from './FormButton.module.scss';
 
 interface ButtonFormProps {
   children: string;
-
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  disable: boolean;
 }
 
-const FormButton: FC<ButtonFormProps> = (props) => {
+const FormButton: FC<ButtonFormProps> = ({ children, disable }) => {
   return (
-    <button className={cl.formButton} onClick={props.onClick}>
-      {props.children}
+    <button className={cl.formButton} type="submit" disabled={disable}>
+      {children}
     </button>
   );
 };
