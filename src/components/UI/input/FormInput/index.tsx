@@ -1,7 +1,7 @@
 import React, { FC, RefObject, RefAttributes, ChangeEvent } from 'react';
 import cl from './FormInput.module.scss';
 
-interface TextInput {
+interface InputProps {
   type: string;
   placeholder: string;
   label: string;
@@ -11,7 +11,7 @@ interface TextInput {
   ref: RefObject<HTMLInputElement>;
 }
 
-const FormInput: FC<Omit<TextInput, 'ref'> & RefAttributes<HTMLInputElement>> = React.forwardRef(
+const FormInput: FC<Omit<InputProps, 'ref'> & RefAttributes<HTMLInputElement>> = React.forwardRef(
   ({ placeholder, type, label, name, error, onChange }, ref) => {
     return (
       <>
@@ -22,7 +22,7 @@ const FormInput: FC<Omit<TextInput, 'ref'> & RefAttributes<HTMLInputElement>> = 
             name={name}
             type={type}
             placeholder={placeholder}
-            className={cl.textInput}
+            className={cl.formInput}
             onChange={onChange}
           />
           {error && <span>{error}</span>}
