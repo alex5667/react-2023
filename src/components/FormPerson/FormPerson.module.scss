@@ -1,0 +1,14 @@
+.mainContent{
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: rem(60);
+}
+
+.contentForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
