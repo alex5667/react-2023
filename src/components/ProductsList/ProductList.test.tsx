@@ -1,5 +1,5 @@
 import React from 'react';
-import { queryAllByTestId, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ProductsList from '.';
 import { Product } from '../../models/product';
 

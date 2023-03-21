@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// import { Person } from 'models/person';
 import cl from './CardPerson.module.scss';
 import { FormPersonState } from 'components/FormPerson';
 
@@ -9,7 +8,7 @@ interface CardPerson {
 
 const CardPerson: FC<CardPerson> = ({ person }) => {
   return (
-    <div className={cl.content}>
+    <article className={cl.content}>
       <div>
         <span> Name:</span> <span>{person.name}</span>
       </div>
@@ -34,7 +33,7 @@ const CardPerson: FC<CardPerson> = ({ person }) => {
       <div className={cl.img}>
         <img src={person.img ? person.img : ''} alt="Image" />
       </div>
-    </div>
+    </article>
   );
 };
 

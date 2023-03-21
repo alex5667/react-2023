@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Person } from 'models/person';
 import FormPerson from 'components/FormPerson';
 import './FormPage.scss';
 import PersonCards from 'components/PersonCards';
@@ -21,7 +20,6 @@ export class index extends Component<Record<string, unknown>, FormPageState> {
   componentDidMount(): void {
     const local = localStorage.getItem('cards');
     const storage = local ? JSON.parse(local) : [];
-    console.log(storage);
     this.setState((state) => {
       return {
         ...state,
