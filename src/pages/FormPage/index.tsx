@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Person } from 'models/person';
 import FormPerson from 'components/FormPerson';
+import './FormPage.scss';
 
 interface FormPageState {
   personCards: Person[];

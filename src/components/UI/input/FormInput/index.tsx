@@ -25,7 +25,7 @@ const FormInput: FC<Omit<InputProps, 'ref'> & RefAttributes<HTMLInputElement>> =
             className={cl.formInput}
             onChange={onChange}
           />
-          {error && <span>{error}</span>}
+          {error ? <div className={cl.error}>{error}</div> : <div className={cl.noerror}></div>}
         </label>
       </>
     );

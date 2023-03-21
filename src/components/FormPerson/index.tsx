@@ -5,6 +5,7 @@ import FormButton from 'components/UI/button/FormButton';
 import FormInput from 'components/UI/input/FormInput';
 import FormSelect from 'components/UI/input/FormSelect';
 import FormCheckBox from 'components/UI/input/FormCheckBox';
+import FormRadio from 'components/UI/input/FormRadio';
 
 interface FormPersonProps {
   personCards: Person[];
@@ -20,7 +21,8 @@ export interface Errors {
   gender?: string;
 }
 interface FormPersonState {
-  buttonDisabled: boolean;
+  submitDisabled: boolean;
+  resetDisabled: boolean;
   name: string;
   surname: string;
   date: string;
@@ -42,7 +44,8 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
   constructor(props: FormPersonProps) {
     super(props);
     this.state = {
-      buttonDisabled: false,
+      submitDisabled: true,
+      resetDisabled: true,
       name: '',
       surname: '',
       date: '',
@@ -61,13 +64,34 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value, type } = event.target;
     const newValue = type === 'checkbox' ? 'Agree' : type === 'file' ? 'download' : value;
+    this.setState(
+      (state) => {
+        return { ...state, [name]: newValue };
+      },
+      () => this.setValidByName(name)
+    );
+
     this.setState((state) => {
-      return { ...state, [name]: newValue };
+      return { ...state, submitDisabled: false, resetDisabled: false };
     });
   };
+
+  setValidByName(name: string): void {
+    console.log(this.state);
+    const error = this.validate();
+    const isValid = error[name as keyof typeof error]!.length === 0;
+    if (isValid) {
+      this.setState((state) => {
+        return {
+          ...state,
+          errors: { ...state.errors, [name]: '' },
+        };
+      });
+    }
+  }
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -76,12 +100,12 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
       (key) => errors[key as keyof typeof errors]!.length === 0
     );
     if (isValidate) {
+      localStorage.setItem('card', JSON.stringify(this.state));
       console.log('все ок');
-      console.log(this.state);
-
       this.setState((state) => {
-        return { ...state, errors: {} };
+        return { ...state, submitDisabled: true };
       });
+      event.currentTarget.reset();
     } else {
       this.setState((state) => {
         return { ...state, errors: errors };
@@ -113,13 +137,11 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     } else {
       errors.date = '';
     }
-
     if (!country) {
       errors.country = 'Choose your country';
     } else {
       errors.country = '';
     }
-
     if (!dataProcessing) {
       errors.dataProcessing = 'Agree to data processing';
     } else {
@@ -130,13 +152,11 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     } else {
       errors.file = '';
     }
-
     if (!gender) {
       errors.gender = 'Choose your gender';
     } else {
       errors.gender = '';
     }
-
     return errors;
   };
 
@@ -148,7 +168,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
             ref={this.nameInput}
             type="text"
             placeholder="Enter you name"
-            label="Please, enter you name"
+            label="Name"
             name="name"
             onChange={this.handleInputChange}
             error={this.state.errors.name}
@@ -157,7 +177,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
             ref={this.surNameInput}
             type="text"
             placeholder="Enter you surname"
-            label="Please, enter you surname"
+            label="Surname"
             name="surname"
             onChange={this.handleInputChange}
             error={this.state.errors.surname}
@@ -166,7 +186,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
             ref={this.dateInput}
             type="date"
             placeholder="Enter you birth date"
-            label="Please, enter you birth date"
+            label="Date"
             name="date"
             onChange={this.handleInputChange}
             error={this.state.errors.date}
@@ -196,17 +216,23 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
             error={this.state.errors.file}
           />
           <div>
-            <FormCheckBox
+            <FormRadio
               ref={this.checkBox}
-              label="Female"
+              label=""
               type="radio"
-              name="male"
+              name="gender"
               onChange={this.handleInputChange}
               error={this.state.errors.gender}
             />
           </div>
-
-          <FormButton disable={this.state.buttonDisabled}> add</FormButton>
+          <div className={cl.formButtons}>
+            <FormButton type="submit" disable={this.state.submitDisabled}>
+              Add card
+            </FormButton>
+            <FormButton type="reset" disable={this.state.resetDisabled}>
+              Reset
+            </FormButton>
+          </div>
         </form>
       </div>
     );

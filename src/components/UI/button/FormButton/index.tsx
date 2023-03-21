@@ -4,11 +4,12 @@ import cl from './FormButton.module.scss';
 interface ButtonFormProps {
   children: string;
   disable: boolean;
+  type: 'button' | 'submit' | 'reset' | undefined;
 }
 
-const FormButton: FC<ButtonFormProps> = ({ children, disable }) => {
+const FormButton: FC<ButtonFormProps> = ({ children, disable, type }) => {
   return (
-    <button className={cl.formButton} type="submit" disabled={disable}>
+    <button className={disable ? cl.unDisabled : cl.formButton} type={type} disabled={disable}>
       {children}
     </button>
   );

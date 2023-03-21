@@ -17,7 +17,7 @@ const FormCheckBox: FC<Omit<CheckProps, 'ref'> & RefAttributes<HTMLInputElement>
         <label className={cl.labelCheck}>
           {label}
           <input ref={ref} name={name} type={type} className={cl.inputCheck} onChange={onChange} />
-          {error && <span>{error}</span>}
+          {error ? <div className={cl.error}>{error}</div> : <div className={cl.noerror}></div>}
         </label>
       </>
     );

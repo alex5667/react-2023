@@ -22,7 +22,7 @@ const FormSelect: FC<Omit<SelectProps, 'ref'> & RefAttributes<HTMLSelectElement>
             <option value="Freedonia">Freedonia</option>
             <option value="Latveria ">Latveria </option>
           </select>
-          {error && <span>{error}</span>}
+          {error ? <div className={cl.error}>{error}</div> : <div className={cl.noerror}></div>}
         </label>
       </>
     );
