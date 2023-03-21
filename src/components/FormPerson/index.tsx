@@ -9,6 +9,7 @@ import FormRadio from 'components/UI/input/FormRadio';
 
 interface FormPersonProps {
   personCards: Person[];
+  addCard: (card: FormPersonState) => void;
 }
 
 export interface Errors {
@@ -20,7 +21,7 @@ export interface Errors {
   file?: string;
   gender?: string;
 }
-interface FormPersonState {
+export interface FormPersonState {
   submitDisabled: boolean;
   resetDisabled: boolean;
   name: string;
@@ -29,6 +30,7 @@ interface FormPersonState {
   country: string;
   dataProcessing: string;
   file: string;
+  img: string | null;
   gender: string;
   errors: Errors;
 }
@@ -52,6 +54,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
       country: '',
       dataProcessing: '',
       file: '',
+      img: null,
       gender: '',
       errors: {},
     };
@@ -62,11 +65,20 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     this.checkBox = createRef<HTMLInputElement>();
     this.fileInput = createRef<HTMLInputElement>();
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value, type } = event.target;
-    const newValue = type === 'checkbox' ? 'Agree' : type === 'file' ? 'download' : value;
+    const newValue = type === 'checkbox' ? 'Agree' : name === 'file' ? 'download' : value;
+    if (name === 'file') {
+      const image = this.fileInput.current?.files as FileList;
+      const objImage = URL.createObjectURL(image[0]);
+      console.log(objImage);
+      this.setState((state) => {
+        return { ...state, img: objImage };
+      });
+    }
     this.setState(
       (state) => {
         return { ...state, [name]: newValue };
@@ -80,7 +92,6 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
   };
 
   setValidByName(name: string): void {
-    console.log(this.state);
     const error = this.validate();
     const isValid = error[name as keyof typeof error]!.length === 0;
     if (isValid) {
@@ -102,16 +113,22 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     if (isValidate) {
       localStorage.setItem('card', JSON.stringify(this.state));
       console.log('все ок');
+
+      this.props.addCard(this.state);
       this.setState((state) => {
-        return { ...state, submitDisabled: true };
+        return { ...state, submitDisabled: true, resetDisabled: true };
       });
-      event.currentTarget.reset();
+      this.handleReset(event);
     } else {
       this.setState((state) => {
         return { ...state, errors: errors };
       });
     }
   };
+
+  handleReset(event: FormEvent<HTMLFormElement>) {
+    event.currentTarget.reset();
+  }
 
   validate = () => {
     const { name, surname, date, country, dataProcessing, file, gender } = this.state;
