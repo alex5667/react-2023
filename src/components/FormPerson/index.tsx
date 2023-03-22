@@ -180,7 +180,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
   render() {
     return (
       <div className={cl.mainContent}>
-        <form onSubmit={this.handleSubmit} className={cl.contentForm}>
+        <form data-testid="form-person" onSubmit={this.handleSubmit} className={cl.contentForm}>
           <FormInput
             ref={this.nameInput}
             type="text"

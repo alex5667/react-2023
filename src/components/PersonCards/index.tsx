@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-// import { Person } from 'models/person';
 import CardPerson from 'components/CardPerson';
 import { FormPersonState } from 'components/FormPerson';
 import cl from './PersonCards.module.scss';

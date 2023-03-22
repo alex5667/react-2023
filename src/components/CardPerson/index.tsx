@@ -8,7 +8,7 @@ interface CardPerson {
 
 const CardPerson: FC<CardPerson> = ({ person }) => {
   return (
-    <article className={cl.content}>
+    <article data-testid="person-card" className={cl.content}>
       <div>
         <span> Name:</span> <span>{person.name}</span>
       </div>

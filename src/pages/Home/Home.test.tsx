@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Home } from '.';
 
-test('renders filtered products list when search text is entered', () => {
+test('renders filtered products list when search text is entered', async () => {
   const products = [
     {
       id: 1,
@@ -59,14 +59,14 @@ test('renders filtered products list when search text is entered', () => {
   ];
   const { getByPlaceholderText, getByText } = render(<Home products={products} />);
 
-  const product1 = getByText(/mobile which/i);
-  const product2 = getByText(/Super Retina/i);
-  const product3 = getByText(/variant which/i);
-  const searchInput = getByPlaceholderText(/Search product/i);
-
-  userEvent.type(searchInput, 'Super Retina');
-
-  expect(product1).not.toBeInTheDocument();
-  expect(product2).toBeInTheDocument();
-  expect(product3).not.toBeInTheDocument();
+  await waitFor(() => {
+    const product1 = getByText(/mobile which/i);
+    const product2 = getByText(/Super Retina/i);
+    const product3 = getByText(/variant which/i);
+    const searchInput = getByPlaceholderText(/Search product/i);
+    userEvent.type(searchInput, 'Super Retina');
+    expect(product1).not.toBeInTheDocument();
+    expect(product2).toBeInTheDocument();
+    expect(product3).not.toBeInTheDocument();
+  });
 });
