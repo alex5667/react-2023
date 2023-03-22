@@ -1,0 +1,13 @@
+@import '../../../../styles/style.scss';
+
+.searchInput {
+  align-self: flex-end;
+  padding-bottom: rem(10);
+  border: 1px solid $mygreen;
+  padding: rem(5);
+  margin-bottom: rem(15);
+  :focus {
+    outline: none;
+    background-color: #cdcdcd;
+  }
+}
