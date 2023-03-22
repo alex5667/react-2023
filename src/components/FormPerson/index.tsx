@@ -74,7 +74,6 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     if (name === 'file') {
       const image = this.fileInput.current?.files as FileList;
       const objImage = URL.createObjectURL(image[0]);
-      console.log(objImage);
       this.setState((state) => {
         return { ...state, img: objImage };
       });
@@ -112,8 +111,7 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     );
     if (isValidate) {
       localStorage.setItem('card', JSON.stringify(this.state));
-      console.log('все ок');
-
+      alert('Data saved in localStorage!');
       this.props.addCard(this.state);
       this.setState((state) => {
         return { ...state, submitDisabled: true, resetDisabled: true };
