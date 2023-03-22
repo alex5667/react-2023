@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { ABOUT_ROUTE, HOME_ROUTE } from 'utils/consts';
+import { ABOUT_ROUTE, HOME_ROUTE, NOTFOUND_ROUTE } from 'utils/consts';
 import './NavBar.scss';
 
 const NavBar = () => {
@@ -29,6 +29,14 @@ const NavBar = () => {
                 className={({ isActive }) => 'menu__link' + (isActive ? '-active' : '')}
               >
                 About us
+              </NavLink>
+            </li>
+            <li className="menu__item">
+              <NavLink
+                to={NOTFOUND_ROUTE}
+                className={({ isActive }) => 'menu__link' + (isActive ? '-active' : '')}
+              >
+                404
               </NavLink>
             </li>
           </ul>
