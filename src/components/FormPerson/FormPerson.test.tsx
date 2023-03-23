@@ -5,9 +5,24 @@ import { FormPerson } from '.';
 
 describe('FormPerson', () => {
   const addCardMock = jest.fn();
+  const personCards = [
+    {
+      submitDisabled: false,
+      resetDisabled: false,
+      name: 'John',
+      surname: 'Doe',
+      date: '01/01/2000',
+      country: 'USA',
+      dataProcessing: 'agree',
+      file: 'document.pdf',
+      img: null,
+      gender: 'male',
+      errors: {},
+    },
+  ];
 
   beforeEach(() => {
-    render(<FormPerson personCards={[]} addCard={addCardMock} />);
+    render(<FormPerson personCards={personCards} addCard={addCardMock} />);
   });
 
   it('should disable the submit button when the form is empty', async () => {
@@ -36,4 +51,5 @@ describe('FormPerson', () => {
       expect(screen.getByRole('button', { name: /Reset/i })).toBeInTheDocument();
     });
   });
+
 });

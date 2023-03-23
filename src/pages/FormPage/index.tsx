@@ -17,24 +17,10 @@ export class index extends Component<Record<string, unknown>, FormPageState> {
     this.addCard = this.addCard.bind(this);
   }
 
-  componentDidMount(): void {
-    const local = localStorage.getItem('cards');
-    const storage = local ? JSON.parse(local) : [];
-    this.setState((state) => {
-      return {
-        ...state,
-        personCards: [...state.personCards, ...storage],
-      };
-    });
-  }
-
   addCard(card: FormPersonState) {
-    this.setState(
-      (state) => {
-        return { ...state, personCards: [...state.personCards, card] };
-      },
-      () => localStorage.setItem('cards', JSON.stringify(this.state.personCards))
-    );
+    this.setState((state) => {
+      return { ...state, personCards: [...state.personCards, card] };
+    });
   }
   render() {
     return (
