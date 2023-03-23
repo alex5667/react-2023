@@ -80,14 +80,10 @@ export class FormPerson extends Component<FormPersonProps, FormPersonState> {
     }
     this.setState(
       (state) => {
-        return { ...state, [name]: newValue };
+        return { ...state, [name]: newValue, submitDisabled: false, resetDisabled: false };
       },
       () => this.setValidByName(name)
     );
-
-    this.setState((state) => {
-      return { ...state, submitDisabled: false, resetDisabled: false };
-    });
   };
 
   setValidByName(name: string): void {
