@@ -64,3 +64,4 @@ export class SearchBar extends Component<SearchBarProps, SearchBarState> {
 }
 
 export default SearchBar;
+

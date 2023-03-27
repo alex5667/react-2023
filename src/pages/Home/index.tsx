@@ -1,9 +1,10 @@
-import { ProductsList } from 'components/ProductsList';
+import ProductsList from 'components/ProductsList';
 import React, { Component } from 'react';
 import './Home.scss';
 import products from 'db/products';
 import { Product } from '../../models/product';
-import SearchBar from 'components/SearchBar';
+// import SearchBar from 'components/SearchBar';
+import SearchHookBar from 'components/SearchBar/SearchHookBar';
 
 interface HomeState {
   products: Product[];
@@ -34,7 +35,7 @@ export class Home extends Component<HomeProps, HomeState> {
       <section className="main__section">
         <div className="main__container">
           <div className="main__content">
-            <SearchBar
+            <SearchHookBar
               products={this.state.products}
               setSearchedProducts={this.setSearchedProducts}
             />
