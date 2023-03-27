@@ -1,0 +1,179 @@
+@use 'sass:math';
+@import '../../styles/style.scss';
+
+.product {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  &.small {
+    width: 16.66%;
+    height: rem(200);
+  }
+
+  &__content {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0px 0px 7px 0px rgba(34, 31, 31, 1);
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    vertical-align: baseline;
+    padding: 10px;
+    &:has(.product__img:hover) {
+      top: 0px;
+      left: 0px;
+      position: absolute;
+      z-index: 150;
+      min-height: rem(500);
+      background: #fff;
+      justify-content: space-around;
+      
+    }
+  }
+
+  // .product__img
+
+  &__img {
+    position: relative;
+    width: 100%;
+    min-height: rem(200);
+    margin-bottom: rem(5);
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+
+    &:hover + .product__main > .product__title + .product__description > p {
+      display: block;
+      line-height: 140%;
+    }
+
+  }
+
+  // .product__main
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: left;
+    vertical-align: baseline;
+    width: 100%;
+
+  }
+
+  // .product__title
+
+  &__title {
+    line-height: 120%;
+    margin-bottom: rem(10);
+    min-height: rem(40);
+
+  }
+
+  // .product__description
+
+  &__description {
+    p {
+      width: 100%;
+      margin-bottom: rem(5);
+      @include adaptiveValue('font-size', 14, 12);
+      &:nth-child(-n + 6) {
+        display: none;
+      }
+
+    }
+  }
+
+  &__descriptions {
+    line-height: 130%;
+  }
+  // .product__category
+
+  &__category {
+  }
+
+  // .product__brand
+
+  &__brand {
+  }
+
+  // .product__stock
+
+  &__stock {
+  }
+
+  // .product__rating
+
+  &__rating {
+  }
+
+  // .product__discount
+
+  &__discount {
+  }
+
+  // .product__price
+
+  &__price {
+  }
+
+  // .product__footer
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+.link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 45%;
+  text-align: center;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.47);
+  height: rem(28);
+  color: $mygreen;
+  font-size: rem(14);
+
+  &:hover {
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  }
+}
+
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

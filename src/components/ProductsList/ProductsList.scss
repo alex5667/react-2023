@@ -1,0 +1,14 @@
+@use 'sass:math';
+@import '../../styles/style.scss';
+
+.products-list {
+
+  width: 100%;
+  display: grid;
+  grid-template: repeat(5, 1fr) / repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  align-items: flex-start;
+  justify-content: stretch;
+  column-gap: rem(15);
+  row-gap: rem(20);
+}
