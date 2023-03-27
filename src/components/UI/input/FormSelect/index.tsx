@@ -1,31 +1,37 @@
-import React, { FC, RefAttributes, RefObject, ChangeEvent } from 'react';
+import React, { FC } from 'react';
 import cl from './FormSelect.module.scss';
+import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { UseFormRegister, FieldError } from 'react-hook-form';
 
-interface SelectProps {
+type SelectProps = {
   label: string;
-  name: string;
-  error: string | undefined;
-  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-  ref: RefObject<HTMLSelectElement>;
-}
-const FormSelect: FC<Omit<SelectProps, 'ref'> & RefAttributes<HTMLSelectElement>> =
-  React.forwardRef(({ label, error, onChange, name }, ref) => {
-    return (
-      <>
-        <label className={cl.labelSelect}>
-          {label}
-          <select ref={ref} name={name} onChange={onChange}>
-            <option value="">Choose a country</option>
-            <option value="Wakanda ">Wakanda </option>
-            <option value="Genovia ">Genovia </option>
-            <option value="Zemunda ">Zemunda </option>
-            <option value="Freedonia">Freedonia</option>
-            <option value="Latveria ">Latveria </option>
-          </select>
-          {error ? <div className={cl.error}>{error}</div> : <div className={cl.noerror}></div>}
-        </label>
-      </>
-    );
-  });
+  type?: string;
+  placeholder?: string;
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+};
 
-export default FormSelect;
+const FormHookSelect: FC<SelectProps> = ({ label, register, error }) => {
+  return (
+    <>
+      <label className={cl.labelSelect}>
+        {label}
+        <select {...register}>
+          <option value="">Choose a country</option>
+          <option value="Wakanda ">Wakanda </option>
+          <option value="Genovia ">Genovia </option>
+          <option value="Zemunda ">Zemunda </option>
+          <option value="Freedonia">Freedonia</option>
+          <option value="Latveria ">Latveria </option>
+        </select>
+        {error ? (
+          <div className={cl.error}>{error.message}</div>
+        ) : (
+          <div className={cl.noerror}></div>
+        )}
+      </label>
+    </>
+  );
+};
+
+export default FormHookSelect;

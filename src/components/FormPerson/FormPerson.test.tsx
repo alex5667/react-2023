@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import FormHookPerson from './FormHookPerson';
+import FormHookPerson from '.';
 
 describe('FormHookPerson', () => {
   it('should render all form fields', () => {

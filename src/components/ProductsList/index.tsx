@@ -9,7 +9,7 @@ interface ListProps {
 
 const index: FC<ListProps> = (props) => {
   return (
-    <div className="products-list">
+    <div data-testid="products-list" className="products-list">
       {props.products.map((product) => (
         <ProductItem key={product.id} product={product} />
       ))}

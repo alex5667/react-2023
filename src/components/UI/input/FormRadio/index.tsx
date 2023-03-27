@@ -1,45 +1,44 @@
-import React, { FC, RefAttributes, RefObject, ChangeEvent } from 'react';
+import React, { FC } from 'react';
 import cl from './FormRadio.module.scss';
+import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { UseFormRegister, FieldError } from 'react-hook-form';
 
-interface CheckProps {
+type RadioProps = {
   label: string;
-  name: string;
-  error: string | undefined;
   type: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  ref: RefObject<HTMLInputElement>;
-}
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+};
 
-const FormRadio: FC<Omit<CheckProps, 'ref'> & RefAttributes<HTMLInputElement>> = React.forwardRef(
-  ({ label, name, error, onChange, type }, ref) => {
-    return (
-      <>
-        <label className={cl.labelRadio}>
-          {label}
-          <span> Male</span>
-          <input
-            ref={ref}
-            name={name}
-            value="male"
-            type={type}
-            className={cl.inputRadio}
-            onChange={onChange}
-          />
-          <span>Female</span>
+const FormHookRadio: FC<RadioProps> = ({ label, type, register, error }) => {
+  return (
+    <>
+      <label className={cl.labelRadio}>
+        {label}
+        <span> Male</span>
+        <input
+          data-testid="gender-input"
+          {...register}
+          value="male"
+          type={type}
+          className={cl.inputRadio}
+        />
+        <span>Female</span>
+        <input
+          data-testid="gender-input"
+          {...register}
+          value="female"
+          type={type}
+          className={cl.inputRadio}
+        />
+        {error ? (
+          <div className={cl.error}>{error.message}</div>
+        ) : (
+          <div className={cl.noerror}></div>
+        )}
+      </label>
+    </>
+  );
+};
 
-          <input
-            ref={ref}
-            name={name}
-            value="female"
-            type={type}
-            className={cl.inputRadio}
-            onChange={onChange}
-          />
-          {error ? <div className={cl.error}>{error}</div> : <div className={cl.noerror}></div>}
-        </label>
-      </>
-    );
-  }
-);
-
-export default FormRadio;
+export default FormHookRadio;

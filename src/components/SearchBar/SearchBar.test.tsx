@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SearchBar from '.';
+import SearchHookBar from '.';
 import { Product } from '../../models/product';
 import 'jest-localstorage-mock';
 
-describe('SearchBar', () => {
+describe('SearchHookBar', () => {
   const products: Product[] = [
     {
       id: 1,
@@ -49,7 +49,7 @@ describe('SearchBar', () => {
 
   it('should set the search query in LocalStorage when the input value changes', async () => {
     const { getByPlaceholderText } = render(
-      <SearchBar products={products} setSearchedProducts={() => {}} />
+      <SearchHookBar products={products} setSearchedProducts={() => {}} />
     );
 
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe('SearchBar', () => {
   it('should update the searched products when the input value changes', async () => {
     const setSearchedProducts = jest.fn();
     const { getByPlaceholderText } = render(
-      <SearchBar products={products} setSearchedProducts={setSearchedProducts} />
+      <SearchHookBar products={products} setSearchedProducts={setSearchedProducts} />
     );
 
     await waitFor(() => {
@@ -111,7 +111,7 @@ describe('SearchBar', () => {
 
     await waitFor(() => {
       const { getByPlaceholderText } = render(
-        <SearchBar products={products} setSearchedProducts={() => {}} />
+        <SearchHookBar products={products} setSearchedProducts={() => {}} />
       );
       expect(localStorageMock).toHaveBeenCalledWith('search');
       expect(getByPlaceholderText('Search product')).toHaveValue('product');
