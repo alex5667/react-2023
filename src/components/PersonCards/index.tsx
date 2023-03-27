@@ -1,19 +1,17 @@
 import React, { FC } from 'react';
 import CardPerson from 'components/CardPerson';
-import { FormPersonState } from 'components/FormPerson';
+// import { FormPersonState } from 'components/FormPerson';
 import cl from './PersonCards.module.scss';
+import { FormValues } from 'components/FormPerson/FormPerson.interface';
 
 interface PersonCards {
-  personCards: FormPersonState[];
+  personCards: FormValues[];
 }
 
 const PersonCards: FC<PersonCards> = ({ personCards }) => {
   return (
     <div className={cl.content}>
-      {personCards &&
-        personCards.map((person) => (
-          <CardPerson key={person.surname + person.name} person={person} />
-        ))}
+      {personCards && personCards.map((person) => <CardPerson key={Date.now()} person={person} />)}
     </div>
   );
 };

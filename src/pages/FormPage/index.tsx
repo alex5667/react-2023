@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import FormPerson from 'components/FormPerson';
+import { FormValues } from 'components/FormPerson/FormPerson.interface';
 import './FormPage.scss';
 import PersonCards from 'components/PersonCards';
-import { FormPersonState } from 'components/FormPerson';
+import FormHookPerson from 'components/FormPerson/FormHookPerson';
 
 interface FormPageState {
-  personCards: FormPersonState[] | [];
+  personCards: FormValues[] | [];
 }
 
 export class index extends Component<Record<string, unknown>, FormPageState> {
@@ -17,7 +17,7 @@ export class index extends Component<Record<string, unknown>, FormPageState> {
     this.addCard = this.addCard.bind(this);
   }
 
-  addCard(card: FormPersonState) {
+  addCard(card: FormValues) {
     this.setState((state) => {
       return { ...state, personCards: [...state.personCards, card] };
     });
@@ -26,7 +26,7 @@ export class index extends Component<Record<string, unknown>, FormPageState> {
     return (
       <div className="main__container">
         <div className="main__content">
-          <FormPerson addCard={this.addCard} personCards={this.state.personCards} />
+          <FormHookPerson addCard={this.addCard} />
           <PersonCards personCards={this.state.personCards} />
         </div>
       </div>

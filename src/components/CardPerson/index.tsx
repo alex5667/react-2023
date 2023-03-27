@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import cl from './CardPerson.module.scss';
-import { FormPersonState } from 'components/FormPerson';
+// import { FormPersonState } from 'components/FormPerson';
+import { FormValues } from 'components/FormPerson/FormPerson.interface';
 
 interface CardPerson {
-  person: FormPersonState;
+  person: FormValues;
 }
 
 const CardPerson: FC<CardPerson> = ({ person }) => {
@@ -22,15 +23,13 @@ const CardPerson: FC<CardPerson> = ({ person }) => {
         <span> Country:</span> <span>{person.country}</span>
       </div>
       <div>
-        <span> Data processing:</span> <span>{person.dataProcessing}</span>
-      </div>
-      <div>
-        <span> Avatar:</span> <span>{person.file}</span>
+        <span> Data processing:</span> <span>{person.dataProcessing && 'Agree'}</span>
       </div>
       <div>
         <span> Gender:</span> <span>{person.gender}</span>
       </div>
       <div className={cl.img}>
+        <span> Avatar:</span>
         <img src={person.img ? person.img : ''} alt="Image" />
       </div>
     </article>

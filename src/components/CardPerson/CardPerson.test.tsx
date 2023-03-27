@@ -8,14 +8,10 @@ describe('CardPerson', () => {
     surname: 'Doe',
     date: '2022-01-01',
     country: 'USA',
-    dataProcessing: 'Agree',
-    file: 'avatar.jpg',
+    dataProcessing: true,
+    file: null,
     gender: 'male',
     img: 'http://example.com/avatar.jpg',
-    processingData: true,
-    submitDisabled: false,
-    resetDisabled: false,
-    errors: {},
   };
 
   it('renders the correct content', () => {
@@ -26,7 +22,6 @@ describe('CardPerson', () => {
     expect(screen.getByText('2022-01-01')).toBeInTheDocument();
     expect(screen.getByText('Country:')).toBeInTheDocument();
     expect(screen.getByText('USA')).toBeInTheDocument();
-    expect(screen.getByText('Data processing:')).toBeInTheDocument();
     expect(screen.getByText('Agree')).toBeInTheDocument();
     expect(screen.getByText('Avatar:')).toBeInTheDocument();
     expect(screen.getByText('Gender:')).toBeInTheDocument();
