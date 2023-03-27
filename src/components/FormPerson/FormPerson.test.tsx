@@ -51,5 +51,4 @@ describe('FormPerson', () => {
       expect(screen.getByRole('button', { name: /Reset/i })).toBeInTheDocument();
     });
   });
-
 });
