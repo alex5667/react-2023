@@ -6,8 +6,8 @@ interface CheckProps {
   name: string;
   error: string | undefined;
   type: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  ref: RefObject<HTMLInputElement>;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  ref?: RefObject<HTMLInputElement>;
 }
 
 const FormCheckBox: FC<Omit<CheckProps, 'ref'> & RefAttributes<HTMLInputElement>> =
