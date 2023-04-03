@@ -14,3 +14,10 @@ export const DefaultFormValues: FormValues = {
   img: null,
   gender: '',
 };
+
+// export enum SortFilter {
+//   DEFAULT = 'DEFAULT',
+//   PRICE = 'PRICE',
+//   RATING = 'RATING',
+//   DISCOUNT = 'DISCOUNT',
+// }

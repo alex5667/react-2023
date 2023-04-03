@@ -1,39 +1,49 @@
 import React, { FC, useEffect, useState } from 'react';
 import SearchInput from 'components/UI/input/SearchInput';
 import { Product } from '../../models/product';
+import cl from './SearchBar.module.scss';
+import { searchProducts } from 'utils/searchProducts';
 
 interface SearchBarProps {
   products: Product[];
-  setSearchedProducts: (search: Product[]) => void;
+  getSearchedProducts: (search: Product[]) => void;
 }
-const SearchHookBar: FC<SearchBarProps> = ({ products, setSearchedProducts }) => {
+const SearchHookBar: FC<SearchBarProps> = ({ products, getSearchedProducts }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchedProducts, setSearchedProducts] = useState([] as Product[]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement> | string): void => {
     const search = typeof e === 'string' ? e : e.target.value.toLowerCase();
     setSearchQuery(search);
   };
+
+  const handleClick = () => {
+    getSearchedProducts(searchedProducts);
+  };
+
   useEffect(() => {
     const search = localStorage.getItem('search') ? localStorage.getItem('search') : '';
     setSearchQuery(search as string);
-  }, []);
+    if (search) {
+      const searchedProducts = searchProducts(search);
+      getSearchedProducts(searchedProducts);
+    } else {
+      getSearchedProducts(products);
+    }
+  }, [getSearchedProducts, products]);
 
   useEffect(() => {
-    const filterProduct = products.filter((product) => {
-      const title: string = product.title.toLowerCase();
-      const brand: string = product.brand.toLowerCase();
-      const description: string = product.description.toLowerCase();
-      const category: string = product.category.toLowerCase();
-      const isExist = (prop: string): boolean => prop.indexOf(searchQuery) > -1;
-      return isExist(category) || isExist(brand) || isExist(description) || isExist(title);
-    });
-    setSearchedProducts(filterProduct);
+    const searchedProducts = searchProducts(searchQuery);
+    setSearchedProducts(searchedProducts);
     localStorage.setItem('search', searchQuery);
-  }, [searchQuery, products, setSearchedProducts]);
+  }, [searchedProducts, products, searchQuery]);
 
   return (
-    <div className="content__search-filter">
+    <div className={cl.searchFilter}>
       <SearchInput onChange={handleSearch} value={searchQuery} placeholder="Search product" />
+      <button onClick={handleClick} className={cl.button}>
+        Search
+      </button>
     </div>
   );
 };

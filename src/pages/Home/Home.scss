@@ -25,10 +25,10 @@
   }
 }
 .content {
-  // .content__search-filter
-
-  &__search-filter {
-    align-self: flex-end;
-    padding-bottom: rem(10);
+  &__filter{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
   }
 }

@@ -49,7 +49,7 @@ describe('SearchHookBar', () => {
 
   it('should set the search query in LocalStorage when the input value changes', async () => {
     const { getByPlaceholderText } = render(
-      <SearchHookBar products={products} setSearchedProducts={() => {}} />
+      <SearchHookBar products={products} getSearchedProducts={() => {}} />
     );
 
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe('SearchHookBar', () => {
   it('should update the searched products when the input value changes', async () => {
     const setSearchedProducts = jest.fn();
     const { getByPlaceholderText } = render(
-      <SearchHookBar products={products} setSearchedProducts={setSearchedProducts} />
+      <SearchHookBar products={products} getSearchedProducts={setSearchedProducts} />
     );
 
     await waitFor(() => {
@@ -111,7 +111,7 @@ describe('SearchHookBar', () => {
 
     await waitFor(() => {
       const { getByPlaceholderText } = render(
-        <SearchHookBar products={products} setSearchedProducts={() => {}} />
+        <SearchHookBar products={products} getSearchedProducts={() => {}} />
       );
       expect(localStorageMock).toHaveBeenCalledWith('search');
       expect(getByPlaceholderText('Search product')).toHaveValue('product');

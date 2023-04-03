@@ -60,7 +60,7 @@ describe('SearchHookBar', () => {
 
   it('should render a list of searched products', async () => {
     const setSearchedProducts = jest.fn();
-    render(<SearchHookBar products={products} setSearchedProducts={setSearchedProducts} />);
+    render(<SearchHookBar products={products} getSearchedProducts={setSearchedProducts} />);
 
     const searchInput = screen.getByPlaceholderText(/Search product/i);
 
