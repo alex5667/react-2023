@@ -35,6 +35,7 @@ const FormHookPerson: FC<FormPersonProps> = ({ addCard }) => {
       data = { ...data, img: URL.createObjectURL(data.file[0]) };
     }
     addCard(data);
+    alert('Data saved in localStorage!');
     reset();
   };
   return (
