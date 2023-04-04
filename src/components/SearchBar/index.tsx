@@ -1,42 +1,25 @@
 import React, { FC, useEffect, useState } from 'react';
 import SearchInput from 'components/UI/input/SearchInput';
-import { Product } from '../../models/product';
 import cl from './SearchBar.module.scss';
-import { searchProducts } from 'utils/searchProducts';
 
 interface SearchBarProps {
-  products: Product[];
-  getSearchedProducts: (search: Product[]) => void;
+  value: string;
+  getSearchedQuery: (search: string) => void;
 }
-const SearchHookBar: FC<SearchBarProps> = ({ products, getSearchedProducts }) => {
+const SearchHookBar: FC<SearchBarProps> = ({ value, getSearchedQuery }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchedProducts, setSearchedProducts] = useState([] as Product[]);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement> | string): void => {
-    const search = typeof e === 'string' ? e : e.target.value.toLowerCase();
-    setSearchQuery(search);
+  useEffect(() => {
+    setSearchQuery(value);
+  }, [value]);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchQuery(() => e.target.value.toLowerCase());
+    console.log(searchQuery);
   };
 
   const handleClick = () => {
-    getSearchedProducts(searchedProducts);
-  };
-
-  useEffect(() => {
-    const search = localStorage.getItem('search') ? localStorage.getItem('search') : '';
-    setSearchQuery(search as string);
-    if (search) {
-      const searchedProducts = searchProducts(search);
-      getSearchedProducts(searchedProducts);
-    } else {
-      getSearchedProducts(products);
-    }
-  }, [getSearchedProducts, products]);
-
-  useEffect(() => {
-    const searchedProducts = searchProducts(searchQuery);
-    setSearchedProducts(searchedProducts);
+    getSearchedQuery(searchQuery);
     localStorage.setItem('search', searchQuery);
-  }, [searchedProducts, products, searchQuery]);
+  };
 
   return (
     <div className={cl.searchFilter}>

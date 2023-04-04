@@ -1,33 +1,32 @@
 import ProductsList from 'components/ProductsList';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import './Home.scss';
 import products from 'db/products';
 import { Product } from '../../models/product';
-import SearchHookBar from 'components/SearchBar';
-import SortSelect from 'components/UI/select';
+import FilterProducts from 'components/FilterProducts/FilterProducts';
+import { useSortedSearchedProducts } from 'hooks/useProducts';
 
 const HomeHook: FC = () => {
-  const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
+  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const sortedSearchedProducts = useSortedSearchedProducts(
+    products,
+    filter.sort as keyof Product,
+    filter.query
+  );
+
+  useEffect(() => {
+    const search = localStorage.getItem('search') ? localStorage.getItem('search') : '';
+    setFilter((filter) => {
+      return { ...filter, query: search as string };
+    });
+  }, []);
+
   return (
     <section className="main__section">
       <div className="main__container">
         <div className="main__content">
-          <div className="content__filter">
-            <SortSelect
-              defaultValue="sort by"
-              options={[
-                { value: 'price', name: 'price' },
-                { value: 'rating', name: 'rating' },
-                { value: 'discount', name: 'discount' },
-              ]}
-            />
-            <SearchHookBar products={products} getSearchedProducts={setSearchedProducts} />
-          </div>
-          {searchedProducts.length ? (
-            <ProductsList products={searchedProducts} />
-          ) : (
-            <h2> Товары не найдены</h2>
-          )}
+          <FilterProducts filter={filter} setFilter={setFilter} />
+          <ProductsList products={sortedSearchedProducts} />
         </div>
       </div>
     </section>

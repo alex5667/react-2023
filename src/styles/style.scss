@@ -42,6 +42,10 @@ $responsiveType: 1;
 
 body {
   background-color: #fff;
+  .lock & {
+		overflow: hidden;
+		overscroll-behavior: none;
+	}
 
 }
 

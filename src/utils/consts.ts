@@ -15,9 +15,8 @@ export const DefaultFormValues: FormValues = {
   gender: '',
 };
 
-// export enum SortFilter {
-//   DEFAULT = 'DEFAULT',
-//   PRICE = 'PRICE',
-//   RATING = 'RATING',
-//   DISCOUNT = 'DISCOUNT',
-// }
+export const SORT_OPTIONS = [
+  { value: 'price', name: 'price' },
+  { value: 'rating', name: 'rating' },
+  { value: 'discount', name: 'discount' },
+];

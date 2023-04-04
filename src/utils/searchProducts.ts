@@ -1,7 +1,7 @@
 import { Product } from '../models/product';
-import products from 'db/products';
+// import products from 'db/products';
 
-export const searchProducts = (query: string): Product[] => {
+export const searchProducts = (products: Product[], query: string): Product[] => {
   return products.filter((product) => {
     const title: string = product.title.toLowerCase();
     const brand: string = product.brand.toLowerCase();
