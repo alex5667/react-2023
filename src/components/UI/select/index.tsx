@@ -1,5 +1,3 @@
-import cl from './sortSelect.module.scss';
-
 import React, { FC } from 'react';
 
 interface Option {

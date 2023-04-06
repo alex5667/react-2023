@@ -1,5 +1,4 @@
 import { Product } from '../models/product';
-// import products from 'db/products';
 
 export const searchProducts = (products: Product[], query: string): Product[] => {
   return products.filter((product) => {
