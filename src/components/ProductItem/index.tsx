@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Product } from '../../models/product';
 import './ProductItem.scss';
 import Modal from 'components/UI/Modal';
-import ModalItem from 'components/ModalItem/ModalItem';
+import ModalItem from 'components/ModalItem';
 
 interface ItemProps {
   product: Product;
