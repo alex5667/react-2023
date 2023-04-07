@@ -6,7 +6,7 @@ import { router } from 'router/routes';
 const App = () => {
   return (
     <>
-      <RouterProvider router={router} />
+      <RouterProvider data-testid="router-provider" router={router} />
     </>
   );
 };

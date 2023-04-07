@@ -1,28 +1,34 @@
-// import { products } from 'db/products';
-import axios from 'axios';
 import { Product } from 'models/product';
+
 export interface ProductResponse {
   products: Product[];
   total: number;
 }
+
 export default class ProductService {
-  static async getAll(limit?: number, skip?: number) {
-    const response = await axios.get<ProductResponse>('https://dummyjson.com/products', {
-      params: {
-        limit: limit,
-        skip: skip,
-      },
-    });
-    return response.data;
+  static async getAll(limit?: number, skip?: number, query?: string) {
+    const queries = query;
+    if (queries) {
+      return;
+    }
+    const params = new URLSearchParams();
+    if (limit !== undefined) {
+      params.append('limit', limit.toString());
+    }
+    if (skip !== undefined) {
+      params.append('skip', skip.toString());
+    }
+    const response = await fetch(`https://dummyjson.com/products?${params.toString()}`);
+    const data = await response.json();
+    return data as ProductResponse;
   }
 
   static async getByQuery(query: string) {
-    console.log(query);
     if (!query) {
       return;
     }
-    const response = await axios.get(`https://dummyjson.com/products/search?q=${query}`);
-    console.log(response);
-    return response.data;
+    const response = await fetch(`https://dummyjson.com/products/search?q=${query}`);
+    const data = await response.json();
+    return data as ProductResponse;
   }
 }

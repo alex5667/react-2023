@@ -1,15 +1,15 @@
-import { render } from '@testing-library/react';
 import React from 'react';
+import { render, waitFor } from '@testing-library/react';
+
 import App from './App';
 
-describe('App component', () => {
-  it('renders without errors', () => {
-    render(<App />);
-  });
-
-  it('contains a RouterProvider with the router object', () => {
+describe('App', () => {
+  it('renders RouterProvider', async () => {
     const { getByTestId } = render(<App />);
-    const routerProvider = getByTestId('router-provider');
-    expect(routerProvider).toBeInTheDocument();
+
+    await waitFor(() => {
+      const routerProvider = getByTestId('router-provider');
+      expect(routerProvider).toBeInTheDocument();
+    });
   });
 });

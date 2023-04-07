@@ -13,7 +13,6 @@ const SearchHookBar: FC<SearchBarProps> = ({ value, getSearchedQuery }) => {
   }, [value]);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchQuery(() => e.target.value.toLowerCase());
-    console.log(searchQuery);
   };
 
   const handleClick = () => {

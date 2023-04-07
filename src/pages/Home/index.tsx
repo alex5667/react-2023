@@ -3,7 +3,7 @@ import React, { FC, useState, useEffect, useRef } from 'react';
 import './Home.scss';
 import { Product } from '../../models/product';
 import FilterProducts from 'components/FilterProducts';
-import { useSortedProducts } from 'hooks/useProducts';
+import { useSortedSearchedProducts } from 'hooks/useProducts';
 import ProductService from 'API/ProductsService';
 import Loader from 'components/Loader';
 import { useFetching } from 'hooks/useFetching';
@@ -42,7 +42,7 @@ const HomeHook: FC = () => {
     isLoading: isLoadingAll,
     error: errorAll,
   } = useFetching(async () => {
-    const response = await ProductService.getAll(limit, (page - 1) * limit);
+    const response = await ProductService.getAll(limit, (page - 1) * limit, filter.query);
     handleResponseFetching(response, isLoadingAll, errorAll);
   });
   fetchingAllRef.current = fetchingAll;
@@ -69,7 +69,7 @@ const HomeHook: FC = () => {
       return { ...filter, query: search as string };
     });
   }, []);
-  const sortedSearchedProducts = useSortedProducts(
+  const sortedSearchedProducts = useSortedSearchedProducts(
     products,
     filter.sort as keyof Product,
     filter.query

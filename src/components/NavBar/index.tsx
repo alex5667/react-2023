@@ -9,7 +9,7 @@ const NavBar = () => {
       <NavLink to={HOME_ROUTE} className="header__logo">
         <h1 className="logo__h1">Online-store</h1>
       </NavLink>
-      <div className="header__menu menu">
+      <div data-testid="app-component" className="header__menu menu">
         <button type="button" className="menu__icon icon-menu">
           <span></span>
         </button>

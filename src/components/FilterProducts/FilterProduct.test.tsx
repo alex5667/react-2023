@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FilterProducts from './index';
 
@@ -14,23 +14,27 @@ describe('FilterProducts', () => {
     render(<FilterProducts filter={filter} setFilter={setFilter} />);
   });
 
-  it('should update the filter sort value', () => {
+  it('should update the filter sort value', async () => {
     const select = screen.getByRole('combobox');
-    userEvent.selectOptions(select, 'price');
-    expect(setFilter).toHaveBeenCalledWith({
-      sort: 'price',
-      query: '',
+    await waitFor(() => {
+      userEvent.selectOptions(select, 'price');
+      expect(setFilter).toHaveBeenCalledWith({
+        sort: 'price',
+        query: '',
+      });
     });
   });
 
-  it('should update the filter query value', () => {
+  it('should update the filter query value', async () => {
     const input = screen.getByRole('searchbox');
     const button = screen.getByRole('button');
-    userEvent.type(input, 'test');
-    userEvent.click(button);
-    expect(setFilter).toHaveBeenCalledWith({
-      sort: '',
-      query: 'test',
+    await waitFor(() => {
+      userEvent.type(input, 'test');
+      userEvent.click(button);
+      expect(setFilter).toHaveBeenCalledWith({
+        sort: '',
+        query: 'test',
+      });
     });
   });
 });
