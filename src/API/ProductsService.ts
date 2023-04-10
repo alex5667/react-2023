@@ -6,12 +6,9 @@ export interface ProductResponse {
 }
 
 export default class ProductService {
-  static async getAll(limit?: number, skip?: number, query?: string, sort?: string) {
+  static async getAll(limit?: number, skip?: number, query?: string) {
     const queries = query;
 
-    if (queries && sort) {
-      return;
-    }
     if (queries) {
       return;
     }

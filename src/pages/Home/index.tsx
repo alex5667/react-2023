@@ -42,12 +42,7 @@ const HomeHook: FC = () => {
     isLoading: isLoadingAll,
     error: errorAll,
   } = useFetching(async () => {
-    const response = await ProductService.getAll(
-      limit,
-      (page - 1) * limit,
-      filter.query,
-      filter.sort
-    );
+    const response = await ProductService.getAll(limit, (page - 1) * limit, filter.query);
     handleResponseFetching(response, isLoadingAll, errorAll);
   });
   fetchingAllRef.current = fetchingAll;
