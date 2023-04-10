@@ -60,7 +60,7 @@ const HomeHook: FC = () => {
   useEffect(() => {
     fetchingAllRef.current && fetchingAllRef.current();
     fetchingQueryRef.current && fetchingQueryRef.current();
-  }, [filter.query, limit, page]);
+  }, [filter.query, limit, page, filter.sort]);
 
   useEffect(() => {
     setLimit(24);
