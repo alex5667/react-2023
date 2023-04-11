@@ -1,0 +1,25 @@
+@import '../../styles/style.scss';
+
+.pagination{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+}
+
+.pages{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid $mygreen;
+  color: $mainColor;
+  margin-right: 10px;
+}
+
+.pages-current{
+  background-color: $mygreen;
+  border: 1px solid $mainColor;
+}
