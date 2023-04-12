@@ -10,6 +10,7 @@ import { useFetching } from 'hooks/useFetching';
 import { getPageCount } from 'utils/pages';
 import Pagination from 'components/Pagination/Pagination';
 import { ProductResponse } from 'API/ProductsService';
+import { productsApi } from 'services/ProductsApi';
 
 const HomeHook: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,48 +20,72 @@ const HomeHook: FC = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | undefined>(undefined);
-  const fetchingAllRef = useRef<() => Promise<void>>();
-  const fetchingQueryRef = useRef<() => Promise<void>>();
+  // const fetchingAllRef = useRef<() => Promise<void>>();
+  // const fetchingQueryRef = useRef<() => Promise<void>>();
+  const fetchingRef = useRef<(data: ProductResponse | undefined) => void>();
+  const {
+    data,
+    isLoading: isAllLoading,
+    error: Allerror,
+  } = productsApi.useFetchAllProductsQuery({ limit: limit, skip: (page - 1) * limit });
+  // const handleResponseFetching = (
+  //   response: ProductResponse | undefined,
+  //   isLoading: boolean,
+  //   error: string | undefined
+  // ) => {
+  //   if (response) {
+  //     const fetchedProducts: Product[] = response.products;
+  //     setProducts(fetchedProducts);
+  //     const totalCount = response.total;
+  //     setTotalPages(getPageCount(totalCount, limit));
+  //     setIsLoading(isLoading);
+  //     setError(error);
+  //   }
+  // };
 
-  const handleResponseFetching = (
-    response: ProductResponse | undefined,
-    isLoading: boolean,
-    error: string | undefined
-  ) => {
-    if (response) {
-      const fetchedProducts: Product[] = response.products;
+  const handleFetch = (data: ProductResponse | undefined) => {
+    if (data) {
+      const fetchedProducts: Product[] = data.products;
       setProducts(fetchedProducts);
-      const totalCount = response.total;
+      const totalCount = data.total;
       setTotalPages(getPageCount(totalCount, limit));
-      setIsLoading(isLoading);
-      setError(error);
+      setIsLoading(isAllLoading);
+    }
+    if (Allerror) {
+      if ('status' in Allerror) {
+        const errMsg = 'error' in Allerror ? Allerror.error : JSON.stringify(Allerror.data);
+        setError(errMsg);
+      } else {
+        setError(Allerror.message);
+      }
     }
   };
+  fetchingRef.current = handleFetch;
+  // const {
+  //   fetching: fetchingAll,
+  //   isLoading: isLoadingAll,
+  //   error: errorAll,
+  // } = useFetching(async () => {
+  //   const response = await ProductService.getAll(limit, (page - 1) * limit, filter.query);
+  //   handleResponseFetching(response, isLoadingAll, errorAll);
+  // });
+  // fetchingAllRef.current = fetchingAll;
 
-  const {
-    fetching: fetchingAll,
-    isLoading: isLoadingAll,
-    error: errorAll,
-  } = useFetching(async () => {
-    const response = await ProductService.getAll(limit, (page - 1) * limit, filter.query);
-    handleResponseFetching(response, isLoadingAll, errorAll);
-  });
-  fetchingAllRef.current = fetchingAll;
-
-  const {
-    fetching: fetchingQuery,
-    isLoading: isLoadingQuery,
-    error: errorQuery,
-  } = useFetching(async () => {
-    const response = await ProductService.getByQuery(filter.query);
-    handleResponseFetching(response, isLoadingQuery, errorQuery);
-  });
-  fetchingQueryRef.current = fetchingQuery;
+  // const {
+  //   fetching: fetchingQuery,
+  //   isLoading: isLoadingQuery,
+  //   error: errorQuery,
+  // } = useFetching(async () => {
+  //   const response = await ProductService.getByQuery(filter.query);
+  //   handleResponseFetching(response, isLoadingQuery, errorQuery);
+  // });
+  // fetchingQueryRef.current = fetchingQuery;
 
   useEffect(() => {
-    fetchingAllRef.current && fetchingAllRef.current();
-    fetchingQueryRef.current && fetchingQueryRef.current();
-  }, [filter.query, limit, page, filter.sort]);
+    fetchingRef.current && fetchingRef.current(data);
+    // fetchingAllRef.current && fetchingAllRef.current();
+    // fetchingQueryRef.current && fetchingQueryRef.current();
+  }, [filter.query, limit, page, filter.sort, data]);
 
   useEffect(() => {
     setLimit(24);

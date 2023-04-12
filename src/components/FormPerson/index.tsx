@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Person } from 'models/person';
 import cl from './FormPerson.module.scss';
 import FormButton from 'components/UI/button/FormButton';
 import { FormValues } from './FormPerson.interface';
@@ -8,13 +7,10 @@ import { DefaultFormValues } from 'utils/consts';
 import FormHookInput from 'components/UI/input/FormInput';
 import FormHookSelect from 'components/UI/input/FormSelect';
 import FormHookRadio from 'components/UI/input/FormRadio';
+import { useActions } from 'hooks/useActions';
 
-interface FormPersonProps {
-  personCards?: Person[];
-  addCard: (card: FormValues) => void;
-}
-
-const FormHookPerson: FC<FormPersonProps> = ({ addCard }) => {
+const FormHookPerson: FC = ({}) => {
+  const { addToCards } = useActions();
   const {
     register,
     formState: { errors, isValid },
@@ -34,8 +30,8 @@ const FormHookPerson: FC<FormPersonProps> = ({ addCard }) => {
     if (data.file) {
       data = { ...data, img: URL.createObjectURL(data.file[0]) };
     }
-    addCard(data);
-    alert('Data saved in localStorage!');
+    addToCards(data);
+    alert('Data saved in Storage!');
     reset();
   };
   return (
