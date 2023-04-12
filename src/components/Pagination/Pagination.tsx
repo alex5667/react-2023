@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import { getPagesArray } from 'utils/pages';
 import './Pagination.scss';
+import { useAppSelector } from 'hooks/redux';
+import { useActions } from 'hooks/useActions';
 
-interface Props {
-  totalPages: number;
-  page: number;
-  changePage: (p: number) => void;
-}
-
-export const Pagination: FC<Props> = ({ totalPages, page, changePage }) => {
+export const Pagination: FC = () => {
+  const { totalPages, page } = useAppSelector((state) => state.homeSlice);
+  const { setPage } = useActions();
   const pagesArray = getPagesArray(totalPages);
 
+  const changePage = (page: number) => {
+    setPage(page);
+  };
   return (
     <div className="pagination">
       {pagesArray.map((p) => (

@@ -1,124 +1,63 @@
 import ProductsList from 'components/ProductsList';
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import './Home.scss';
-import { Product } from '../../models/product';
 import FilterProducts from 'components/FilterProducts';
-import { useSortedSearchedProducts } from 'hooks/useProducts';
-import ProductService from 'API/ProductsService';
 import Loader from 'components/Loader';
-import { useFetching } from 'hooks/useFetching';
-import { getPageCount } from 'utils/pages';
 import Pagination from 'components/Pagination/Pagination';
 import { ProductResponse } from 'API/ProductsService';
 import { productsApi } from 'services/ProductsApi';
+import { useAppSelector } from 'hooks/redux';
+import { useActions } from 'hooks/useActions';
+import { Product } from '../../models/product';
 
 const HomeHook: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filter, setFilter] = useState({ sort: '', query: '' });
-  const [totalPages, setTotalPages] = useState(0);
-  const [limit, setLimit] = useState(24);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | undefined>(undefined);
-  // const fetchingAllRef = useRef<() => Promise<void>>();
-  // const fetchingQueryRef = useRef<() => Promise<void>>();
+  const { query, sort, limit, page } = useAppSelector((state) => state.homeSlice);
+  const { setProducts, setTotalCount, setTotalPages, setIsLoading, setError } = useActions();
   const fetchingRef = useRef<(data: ProductResponse | undefined) => void>();
-  const {
-    data,
-    isLoading: isAllLoading,
-    error: Allerror,
-  } = productsApi.useFetchAllProductsQuery({ limit: limit, skip: (page - 1) * limit });
-  // const handleResponseFetching = (
-  //   response: ProductResponse | undefined,
-  //   isLoading: boolean,
-  //   error: string | undefined
-  // ) => {
-  //   if (response) {
-  //     const fetchedProducts: Product[] = response.products;
-  //     setProducts(fetchedProducts);
-  //     const totalCount = response.total;
-  //     setTotalPages(getPageCount(totalCount, limit));
-  //     setIsLoading(isLoading);
-  //     setError(error);
-  //   }
-  // };
+  const { data, isLoading, error } = productsApi.useFetchAllProductsQuery({
+    search: query,
+    limit: limit,
+    skip: (page - 1) * limit,
+  });
 
   const handleFetch = (data: ProductResponse | undefined) => {
     if (data) {
       const fetchedProducts: Product[] = data.products;
       setProducts(fetchedProducts);
-      const totalCount = data.total;
-      setTotalPages(getPageCount(totalCount, limit));
-      setIsLoading(isAllLoading);
+      setTotalCount(data.total);
+      setTotalPages();
+      setIsLoading(isLoading);
     }
-    if (Allerror) {
-      if ('status' in Allerror) {
-        const errMsg = 'error' in Allerror ? Allerror.error : JSON.stringify(Allerror.data);
+    if (error) {
+      if ('status' in error) {
+        const errMsg = 'error' in error ? error.error : JSON.stringify(error.data);
         setError(errMsg);
       } else {
-        setError(Allerror.message);
+        setError(error.message);
       }
     }
   };
   fetchingRef.current = handleFetch;
-  // const {
-  //   fetching: fetchingAll,
-  //   isLoading: isLoadingAll,
-  //   error: errorAll,
-  // } = useFetching(async () => {
-  //   const response = await ProductService.getAll(limit, (page - 1) * limit, filter.query);
-  //   handleResponseFetching(response, isLoadingAll, errorAll);
-  // });
-  // fetchingAllRef.current = fetchingAll;
-
-  // const {
-  //   fetching: fetchingQuery,
-  //   isLoading: isLoadingQuery,
-  //   error: errorQuery,
-  // } = useFetching(async () => {
-  //   const response = await ProductService.getByQuery(filter.query);
-  //   handleResponseFetching(response, isLoadingQuery, errorQuery);
-  // });
-  // fetchingQueryRef.current = fetchingQuery;
 
   useEffect(() => {
     fetchingRef.current && fetchingRef.current(data);
-    // fetchingAllRef.current && fetchingAllRef.current();
-    // fetchingQueryRef.current && fetchingQueryRef.current();
-  }, [filter.query, limit, page, filter.sort, data]);
-
-  useEffect(() => {
-    setLimit(24);
-    const search = localStorage.getItem('search') ?? '';
-    setFilter((filter) => {
-      return { ...filter, query: search as string };
-    });
-  }, []);
-  const sortedSearchedProducts = useSortedSearchedProducts(
-    products,
-    filter.sort as keyof Product,
-    filter.query
-  );
-
-  const changePage = (page: number) => {
-    setPage(page);
-  };
+  }, [query, limit, sort, data]);
 
   return (
     <section className="main__section">
       <div className="main__container">
         <div className="main__content">
-          <FilterProducts filter={filter} setFilter={setFilter} />
+          <FilterProducts />
           {isLoading ? (
             <Loader />
           ) : error ? (
             <h2 className="error">{error.toString()}</h2>
           ) : (
-            <ProductsList products={sortedSearchedProducts} />
+            <ProductsList />
           )}
         </div>
       </div>
-      <Pagination page={page} changePage={changePage} totalPages={totalPages} />
+      <Pagination />
     </section>
   );
 };

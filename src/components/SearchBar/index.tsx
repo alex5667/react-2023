@@ -1,23 +1,22 @@
 import React, { FC, useEffect, useState } from 'react';
 import SearchInput from 'components/UI/input/SearchInput';
 import cl from './SearchBar.module.scss';
+import { useActions } from 'hooks/useActions';
+import { useAppSelector } from 'hooks/redux';
 
-interface SearchBarProps {
-  value: string;
-  getSearchedQuery: (search: string) => void;
-}
-const SearchHookBar: FC<SearchBarProps> = ({ value, getSearchedQuery }) => {
+const SearchHookBar: FC = ({}) => {
+  const { addQuery } = useActions();
+  const { query } = useAppSelector((state) => state.homeSlice);
   const [searchQuery, setSearchQuery] = useState('');
   useEffect(() => {
-    setSearchQuery(value);
-  }, [value]);
+    setSearchQuery(query);
+  }, [query]);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchQuery(() => e.target.value.toLowerCase());
   };
 
   const handleClick = () => {
-    getSearchedQuery(searchQuery);
-    localStorage.setItem('search', searchQuery);
+    addQuery(searchQuery);
   };
 
   return (

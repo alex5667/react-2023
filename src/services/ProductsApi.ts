@@ -7,8 +7,9 @@ export interface ProductResponse {
 }
 
 interface Params {
-  limit: number;
-  skip: number;
+  search?: string | undefined;
+  limit?: number;
+  skip?: number;
 }
 
 export const productsApi = createApi({
@@ -19,13 +20,24 @@ export const productsApi = createApi({
   tagTypes: ['Products'],
   endpoints: (build) => ({
     fetchAllProducts: build.query<ProductResponse, Params>({
-      query: ({ limit, skip }) => ({
-        url: `/products`,
-        params: {
-          limit: limit,
-          skip: skip,
-        },
-      }),
+      query: ({ search, limit, skip }) => {
+        console.log(search);
+        if (search) {
+          return {
+            url: `/products/search`,
+            params: {
+              q: search,
+            },
+          };
+        }
+        return {
+          url: `/products`,
+          params: {
+            limit: limit,
+            skip: skip,
+          },
+        };
+      },
     }),
   }),
 });
