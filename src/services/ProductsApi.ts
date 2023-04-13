@@ -21,7 +21,6 @@ export const productsApi = createApi({
   endpoints: (build) => ({
     fetchAllProducts: build.query<ProductResponse, Params>({
       query: ({ search, limit, skip }) => {
-        console.log(search);
         if (search) {
           return {
             url: `/products/search`,

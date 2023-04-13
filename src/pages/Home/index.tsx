@@ -4,11 +4,11 @@ import './Home.scss';
 import FilterProducts from 'components/FilterProducts';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination/Pagination';
-import { ProductResponse } from 'API/ProductsService';
 import { productsApi } from 'services/ProductsApi';
 import { useAppSelector } from 'hooks/redux';
 import { useActions } from 'hooks/useActions';
 import { Product } from '../../models/product';
+import { ProductResponse } from 'services/ProductsApi';
 
 const HomeHook: FC = () => {
   const { query, sort, limit, page } = useAppSelector((state) => state.homeSlice);
@@ -45,7 +45,7 @@ const HomeHook: FC = () => {
 
   return (
     <section className="main__section">
-      <div className="main__container">
+      <div data-testid="products-list" className="main__container">
         <div className="main__content">
           <FilterProducts />
           {isLoading ? (

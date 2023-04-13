@@ -11,7 +11,11 @@ const ProductsList: FC = () => {
   const sortedSearchedProducts = useSortedSearchedProducts(products, sort as keyof Product, query);
 
   if (!sortedSearchedProducts.length) {
-    return <h2 className={cl.h2}> Товары не найдены</h2>;
+    return (
+      <h2 data-testid="products-list" className={cl.h2}>
+        Товары не найдены
+      </h2>
+    );
   }
 
   return (

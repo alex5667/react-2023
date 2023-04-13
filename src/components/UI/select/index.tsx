@@ -14,7 +14,11 @@ interface SortSelect {
 
 const SortSelect: FC<SortSelect> = ({ options, defaultValue, value, onchange }) => {
   return (
-    <select value={value} onChange={(event) => onchange(event.target.value)}>
+    <select
+      data-testid="sort-select"
+      value={value}
+      onChange={(event) => onchange(event.target.value)}
+    >
       <option value="">{defaultValue}</option>
       {options.map((option: Option) => {
         return (

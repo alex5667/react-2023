@@ -52,14 +52,6 @@ const ProductItem: FC<ItemProps> = ({ product }) => {
                 <span>Price: €</span> {product.price}
               </p>
             </div>
-            {/* <div className="product__footer">
-            <a type="button" className="link-button link-button-add-to-cart">
-              Add to cart
-            </a>
-            <a href="/#/product-details/100" className="link-button link-button-details" id="100">
-              Details
-            </a>
-          </div> */}
           </div>
         </div>
       </article>
