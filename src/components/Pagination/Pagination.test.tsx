@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import Pagination from './Pagination';
 import { useAppSelector } from 'hooks/redux';
 import { useActions } from 'hooks/useActions';
+import React from 'react';
 
 jest.mock('hooks/redux', () => ({
   useAppSelector: jest.fn(),

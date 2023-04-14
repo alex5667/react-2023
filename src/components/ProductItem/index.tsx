@@ -28,7 +28,9 @@ const ProductItem: FC<ItemProps> = ({ product }) => {
             <img src={product.thumbnail} alt="Product"></img>
           </div>
           <div className="product__main">
-            <h3 className="product__title">{product.title.toLocaleUpperCase()}</h3>
+            <h3 data-testid="product-item-title" className="product__title">
+              {product.title.toLocaleUpperCase()}
+            </h3>
             <div className="product__description">
               <p className="product__descriptions">
                 <span>Description:</span> {product.description}
@@ -45,10 +47,10 @@ const ProductItem: FC<ItemProps> = ({ product }) => {
               <p className="product__rating">
                 <span>Rating:</span> {product.rating}
               </p>
-              <p className="product__discount">
+              <p data-testid="product-discount" className="product__discount">
                 <span>Discount:</span> {product.discountPercentage}
               </p>
-              <p className="product__price">
+              <p data-testid="product-price" className="product__price">
                 <span>Price: €</span> {product.price}
               </p>
             </div>

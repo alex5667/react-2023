@@ -40,3 +40,4 @@ export const productsApi = createApi({
     }),
   }),
 });
+export const { useFetchAllProductsQuery } = productsApi;

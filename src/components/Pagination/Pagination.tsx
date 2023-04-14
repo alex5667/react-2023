@@ -13,7 +13,7 @@ export const Pagination: FC = () => {
     setPage(page);
   };
   return (
-    <div className="pagination">
+    <div data-testid="products-pagination" className="pagination">
       {pagesArray.map((p) => (
         <span
           className={page === p ? `pages pages-current` : `pages`}

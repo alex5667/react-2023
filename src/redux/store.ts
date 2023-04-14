@@ -3,7 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import formSlice from './reducers/FormSlice';
 import { productsApi } from 'services/ProductsApi';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   formSlice,
   homeSlice,
   [productsApi.reducerPath]: productsApi.reducer,

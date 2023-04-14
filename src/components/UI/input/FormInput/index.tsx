@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { FormValues } from 'components/FormPerson';
 import { UseFormRegister, FieldError } from 'react-hook-form';
 import cl from './FormInput.module.scss';
 

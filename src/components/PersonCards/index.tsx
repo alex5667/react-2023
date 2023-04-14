@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import CardPerson from 'components/CardPerson';
 // import { FormPersonState } from 'components/FormPerson';
 import cl from './PersonCards.module.scss';
-import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { FormValues } from 'components/FormPerson';
 
 interface PersonCards {
   personCards: FormValues[];

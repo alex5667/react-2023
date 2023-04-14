@@ -2,13 +2,21 @@ import React, { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import cl from './FormPerson.module.scss';
 import FormButton from 'components/UI/button/FormButton';
-import { FormValues } from './FormPerson.interface';
 import { DefaultFormValues } from 'utils/consts';
 import FormHookInput from 'components/UI/input/FormInput';
 import FormHookSelect from 'components/UI/input/FormSelect';
 import FormHookRadio from 'components/UI/input/FormRadio';
 import { useActions } from 'hooks/useActions';
-
+export interface FormValues {
+  name: string;
+  surname: string;
+  date: string;
+  country: string;
+  dataProcessing: boolean;
+  file: FileList | null;
+  img: string | null;
+  gender: string;
+}
 const FormHookPerson: FC = ({}) => {
   const { addToCards } = useActions();
   const {

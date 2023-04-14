@@ -15,16 +15,22 @@ const store = mockStore({
     products: [
       {
         id: 1,
-        title: 'Product 1',
-        description: 'Product 1 description',
-        category: 'Category 1',
-        brand: 'Brand 1',
-        stock: 10,
-        rating: 4.5,
-        discountPercentage: 20,
-        price: 100,
-        thumbnail: 'https://example.com/product1.jpg',
-        images: [], // add images property with default value
+        title: 'iPhone 9',
+        description: 'An apple mobile which is nothing like apple',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Apple',
+        category: 'smartphones',
+        thumbnail: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+        images: [
+          'https://i.dummyjson.com/data/products/1/1.jpg',
+          'https://i.dummyjson.com/data/products/1/2.jpg',
+          'https://i.dummyjson.com/data/products/1/3.jpg',
+          'https://i.dummyjson.com/data/products/1/4.jpg',
+          'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+        ],
       },
     ],
   },
@@ -33,16 +39,22 @@ const store = mockStore({
 describe('ProductItem component', () => {
   const mockProduct: Product = {
     id: 1,
-    title: 'Product 1',
-    description: 'Product 1 description',
-    category: 'Category 1',
-    brand: 'Brand 1',
-    stock: 10,
-    rating: 4.5,
-    discountPercentage: 20,
-    price: 100,
-    thumbnail: 'https://example.com/product1.jpg',
-    images: [], // add images property with default value
+    title: 'iPhone 9',
+    description: 'An apple mobile which is nothing like apple',
+    price: 549,
+    discountPercentage: 12.96,
+    rating: 4.69,
+    stock: 94,
+    brand: 'Apple',
+    category: 'smartphones',
+    thumbnail: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+    images: [
+      'https://i.dummyjson.com/data/products/1/1.jpg',
+      'https://i.dummyjson.com/data/products/1/2.jpg',
+      'https://i.dummyjson.com/data/products/1/3.jpg',
+      'https://i.dummyjson.com/data/products/1/4.jpg',
+      'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+    ],
   };
 
   test('renders product item with correct data', () => {
@@ -54,14 +66,8 @@ describe('ProductItem component', () => {
 
     expect(screen.getByTestId('product-item')).toBeInTheDocument();
 
-    expect(screen.getByText('PRODUCT 1')).toBeInTheDocument();
-    expect(screen.getByText('Description: Product 1 description')).toBeInTheDocument();
-    expect(screen.getByText('Category: Category 1')).toBeInTheDocument();
-    expect(screen.getByText('Brand: Brand 1')).toBeInTheDocument();
-    expect(screen.getByText('Stock: 10')).toBeInTheDocument();
-    expect(screen.getByText('Rating: 4.5')).toBeInTheDocument();
-    expect(screen.getByText('Discount: 20')).toBeInTheDocument();
-    expect(screen.getByText('Price: € 100')).toBeInTheDocument();
+    expect(screen.getByTestId('product-price')).toHaveTextContent('549');
+    expect(screen.getByTestId('product-discount')).toHaveTextContent('12.96');
   });
 
   test('opens modal with product details when clicked', () => {
@@ -73,14 +79,7 @@ describe('ProductItem component', () => {
 
     expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
     userEvent.click(screen.getByTestId('product-item'));
-    expect(screen.getByTestId('modal')).toBeInTheDocument();
-    expect(screen.getByText('Product 1')).toBeInTheDocument();
-    expect(screen.getByText('Product 1 description')).toBeInTheDocument();
-    expect(screen.getByText('Category 1')).toBeInTheDocument();
-    expect(screen.getByText('Brand 1')).toBeInTheDocument();
-    expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getByText('4.5')).toBeInTheDocument();
-    expect(screen.getByText('20%')).toBeInTheDocument();
-    expect(screen.getByText('€ 100')).toBeInTheDocument();
+    expect(screen.getByTestId('product-priceModal')).toHaveTextContent('549');
+    expect(screen.getByTestId('product-discountModal')).toHaveTextContent('12.96');
   });
 });

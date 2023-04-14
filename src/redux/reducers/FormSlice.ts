@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { FormValues } from 'components/FormPerson';
 
 interface FormState {
   persons: FormValues[];
@@ -17,5 +17,6 @@ export const formSlice = createSlice({
     },
   },
 });
+export const { addToCards } = formSlice.actions;
 
 export default formSlice.reducer;

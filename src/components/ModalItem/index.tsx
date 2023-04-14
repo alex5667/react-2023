@@ -29,10 +29,10 @@ const ModalItem: FC<ModalItem> = ({ product }) => {
           <p className="product__rating">
             <span>Rating:</span> {product.rating}
           </p>
-          <p className="product__discount">
+          <p data-testid="product-discountModal" className="product__discount">
             <span>Discount:</span> {product.discountPercentage}
           </p>
-          <p className="product__price">
+          <p data-testid="product-priceModal" className="product__price">
             <span>Price: €</span> {product.price}
           </p>
         </div>

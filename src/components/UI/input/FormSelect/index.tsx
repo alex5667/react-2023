@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import cl from './FormSelect.module.scss';
-import { FormValues } from 'components/FormPerson/FormPerson.interface';
+import { FormValues } from 'components/FormPerson';
 import { UseFormRegister, FieldError } from 'react-hook-form';
 
 type SelectProps = {

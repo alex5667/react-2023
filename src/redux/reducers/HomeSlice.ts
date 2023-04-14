@@ -58,5 +58,16 @@ export const homeSlice = createSlice({
     },
   },
 });
+export const {
+  setProducts,
+  addQuery,
+  addSort,
+  setLimit,
+  setTotalCount,
+  setTotalPages,
+  setPage,
+  setIsLoading,
+  setError,
+} = homeSlice.actions;
 
 export default homeSlice.reducer;
