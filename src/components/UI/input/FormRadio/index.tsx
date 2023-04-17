@@ -6,7 +6,7 @@ import { UseFormRegister, FieldError } from 'react-hook-form';
 type RadioProps = {
   label: string;
   type: string;
-  register: ReturnType<UseFormRegister<FormValues>>;
+  register?: ReturnType<UseFormRegister<FormValues>>;
   error: FieldError | undefined;
 };
 

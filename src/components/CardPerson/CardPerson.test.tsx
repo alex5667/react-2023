@@ -1,30 +1,77 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
-import CardPerson from '.';
+import { render } from '@testing-library/react';
+import CardPerson from './index';
+import { FormValues } from 'components/FormPerson';
 
 describe('CardPerson', () => {
-  const person = {
+  const person: FormValues = {
     name: 'John',
     surname: 'Doe',
     date: '2022-01-01',
     country: 'USA',
     dataProcessing: true,
     file: null,
+    img: 'https://example.com/avatar.jpg',
     gender: 'male',
-    img: 'http://example.com/avatar.jpg',
   };
 
-  it('renders the correct content', () => {
-    render(<CardPerson person={person} />);
-    expect(screen.getByText('John')).toBeInTheDocument();
-    expect(screen.getByText('Doe')).toBeInTheDocument();
-    expect(screen.getByText('Date:')).toBeInTheDocument();
-    expect(screen.getByText('2022-01-01')).toBeInTheDocument();
-    expect(screen.getByText('Country:')).toBeInTheDocument();
-    expect(screen.getByText('USA')).toBeInTheDocument();
-    expect(screen.getByText('Agree')).toBeInTheDocument();
-    expect(screen.getByText('Avatar:')).toBeInTheDocument();
-    expect(screen.getByText('Gender:')).toBeInTheDocument();
-    expect(screen.getByText('male')).toBeInTheDocument();
+  it('should render a person card with all fields', () => {
+    const { getByText, getByAltText } = render(<CardPerson person={person} />);
+
+    expect(getByText('Name:')).toBeInTheDocument();
+    expect(getByText('John')).toBeInTheDocument();
+
+    expect(getByText('Surname:')).toBeInTheDocument();
+    expect(getByText('Doe')).toBeInTheDocument();
+
+    expect(getByText('Date:')).toBeInTheDocument();
+    expect(getByText('2022-01-01')).toBeInTheDocument();
+
+    expect(getByText('Country:')).toBeInTheDocument();
+    expect(getByText('USA')).toBeInTheDocument();
+
+    expect(getByText('Data processing:')).toBeInTheDocument();
+    expect(getByText('Agree')).toBeInTheDocument();
+
+    expect(getByText('Gender:')).toBeInTheDocument();
+    expect(getByText('male')).toBeInTheDocument();
+
+    expect(getByAltText('Image')).toBeInTheDocument();
+  });
+
+  it('should render a person card with only required fields', () => {
+    const personWithoutOptionalFields: FormValues = {
+      name: 'Jane',
+      surname: 'Doe',
+      date: '2022-02-02',
+      country: 'Canada',
+      dataProcessing: false,
+      file: null,
+      img: null,
+      gender: 'female',
+    };
+    const { getByText, queryByText, queryByAltText } = render(
+      <CardPerson person={personWithoutOptionalFields} />
+    );
+
+    expect(getByText('Name:')).toBeInTheDocument();
+    expect(getByText('Jane')).toBeInTheDocument();
+
+    expect(getByText('Surname:')).toBeInTheDocument();
+    expect(getByText('Doe')).toBeInTheDocument();
+
+    expect(getByText('Date:')).toBeInTheDocument();
+    expect(getByText('2022-02-02')).toBeInTheDocument();
+
+    expect(getByText('Country:')).toBeInTheDocument();
+    expect(getByText('Canada')).toBeInTheDocument();
+
+    expect(getByText('Data processing:')).toBeInTheDocument();
+    expect(queryByText('Agree')).toBeNull();
+
+    expect(getByText('Gender:')).toBeInTheDocument();
+    expect(getByText('female')).toBeInTheDocument();
+
+    expect(queryByAltText('Image')).toHaveAttribute('src', '');
   });
 });

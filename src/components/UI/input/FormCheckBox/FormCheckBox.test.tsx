@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { getByText, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FormCheckBox from './index';
 
@@ -29,5 +29,19 @@ describe('FormCheckBox component', () => {
     userEvent.click(checkbox);
     expect(checkbox).toBeChecked();
     expect(onChange).toHaveBeenCalledTimes(1);
+  });
+  it('should render the error message when an error is provided', () => {
+    const { getByText } = render(
+      <FormCheckBox label="Test Label" name="test-name" error="Test Error" type="checkbox" />
+    );
+
+    expect(getByText('Test Error')).toBeInTheDocument();
+  });
+  it('should not render the error message when no error is provided', () => {
+    const { queryByText } = render(
+      <FormCheckBox label="Test Label" name="test-name" error={undefined} type="checkbox" />
+    );
+
+    expect(queryByText('Test Error')).toBeNull();
   });
 });
