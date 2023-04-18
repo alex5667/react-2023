@@ -1,5 +1,5 @@
 import { Product } from 'models/product';
-import { useSortedSearchedProducts } from './useProducts';
+import { useSortedSearchedProducts, useSortedProducts } from './useProducts';
 import { useMemo } from 'react';
 
 jest.mock('react', () => ({
@@ -141,5 +141,38 @@ describe('useSortedSearchedProducts', () => {
     const sortedSearchedProducts = useSortedSearchedProducts(products, sort, query);
 
     expect(sortedSearchedProducts).toEqual(searchedProducts);
+  });
+  it('should return products in ascending order when sort is "name"', () => {
+    const sort = 'title';
+    const sortedProducts = [products[0], products[1], products[2]];
+    (useMemo as jest.MockedFunction<typeof useMemo>)
+      .mockReturnValueOnce(products)
+      .mockReturnValueOnce(sortedProducts);
+
+    const result = useSortedProducts(products, sort);
+
+    expect(result).toEqual(sortedProducts);
+  });
+
+  it('should return products in descending order when sort is "price"', () => {
+    const sort = 'price';
+    const sortedProducts = [products[0], products[1], products[2]];
+    (useMemo as jest.MockedFunction<typeof useMemo>)
+      .mockReturnValueOnce(products)
+      .mockReturnValueOnce(sortedProducts);
+    const result = useSortedProducts(products, sort);
+
+    expect(result).toEqual(sortedProducts);
+  });
+  it('should return original array when sort is empty string', () => {
+    const sort = '';
+    const sortedProducts = [...products];
+    (useMemo as jest.MockedFunction<typeof useMemo>)
+      .mockReturnValueOnce(products)
+      .mockReturnValueOnce(sortedProducts);
+
+    const result = useSortedProducts(products, sort);
+
+    expect(result).toEqual(sortedProducts);
   });
 });

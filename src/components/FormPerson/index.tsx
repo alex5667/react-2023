@@ -100,7 +100,7 @@ const FormHookPerson: FC = ({}) => {
           register={register('dataProcessing', {
             required: 'The consent is required',
           })}
-          error={errors.date}
+          error={errors.dataProcessing}
         />
         <FormHookInput
           type="file"
@@ -108,15 +108,15 @@ const FormHookPerson: FC = ({}) => {
           register={register('file', {
             required: 'The file is required',
           })}
-          error={errors.date}
+          error={errors.file}
         />
         <FormHookRadio
           type="radio"
           label=""
           register={register('gender', {
-            required: 'The file is required',
+            required: 'The gender is required',
           })}
-          error={errors.date}
+          error={errors.gender}
         />
         <div className={cl.formButtons}>
           <FormButton type="submit" disable={!isValid}>

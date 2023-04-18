@@ -3,8 +3,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import configureStore, { MockStoreEnhanced } from 'redux-mock-store';
-import FormHookPerson from './index';
-import { FormValues } from './index';
+import FormHookPerson, { FormValues } from './index';
 
 const mockStore = configureStore<unknown, unknown>([]);
 
@@ -193,5 +192,80 @@ describe('FormHookPerson', () => {
     expect(
       screen.getByText('The name must begin with a capital letter and contain only letters')
     ).toBeInTheDocument();
+  });
+  test('should reset form values when Reset button is clicked', async () => {
+    render(
+      <Provider store={store}>
+        <FormHookPerson />
+      </Provider>
+    );
+
+    const nameInput = screen.getByLabelText('Name') as HTMLInputElement;
+    const surnameInput = screen.getByLabelText('Surname') as HTMLInputElement;
+    const dateInput = screen.getByLabelText('Date') as HTMLInputElement;
+    const countrySelect = screen.getByLabelText('Choose your country') as HTMLSelectElement;
+    const consentCheckbox = screen.getByLabelText('Consent to data processing') as HTMLInputElement;
+    const fileInput = screen.getByLabelText('Avatar') as HTMLInputElement;
+    const resetButton = screen.getByRole('button', { name: 'Reset' });
+
+    await act(async () => {
+      await userEvent.type(nameInput, 'John');
+      await userEvent.type(surnameInput, 'Doe');
+      await userEvent.type(dateInput, '2023-04-14');
+      await fireEvent.change(countrySelect, { target: { value: 'Wakanda' } });
+      await userEvent.click(consentCheckbox);
+      const testFile = new File(['test'], 'test.png', { type: 'image/png' });
+      await fireEvent.change(fileInput, { target: { files: [testFile] } });
+    });
+
+    await act(async () => {
+      await userEvent.click(resetButton);
+    });
+
+    expect(screen.queryByText('John')).not.toBeInTheDocument();
+    expect(screen.queryByText('Doe')).not.toBeInTheDocument();
+    expect(screen.queryByText('2023-04-14')).not.toBeInTheDocument();
+    expect(screen.queryByText('USA')).not.toBeInTheDocument();
+    expect(screen.queryByText('Yes')).not.toBeInTheDocument();
+  });
+  test('an error is displayed if the country is not selected', async () => {
+    render(
+      <Provider store={store}>
+        <FormHookPerson />
+      </Provider>
+    );
+
+    const countrySelect = screen.getByLabelText('Choose your country');
+    const addButton = screen.getByRole('button', { name: /add card/i });
+
+    expect(addButton).toBeDisabled();
+
+    await act(async () => {
+      await userEvent.selectOptions(countrySelect, '');
+    });
+    expect(addButton).toBeDisabled();
+
+    const error = await screen.getByText('The country is required');
+    expect(error).toBeInTheDocument();
+  });
+  test('an error is displayed if file is not selected', async () => {
+    render(
+      <Provider store={store}>
+        <FormHookPerson />
+      </Provider>
+    );
+
+    const fileInput = screen.getByLabelText('Avatar');
+    const addButton = screen.getByRole('button', { name: /add card/i });
+
+    expect(addButton).toBeDisabled();
+
+    await act(async () => {
+      await fireEvent.change(fileInput, { target: { files: [] } });
+    });
+    expect(addButton).toBeDisabled();
+
+    const error = await screen.getByText('The file is required');
+    expect(error).toBeInTheDocument();
   });
 });

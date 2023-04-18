@@ -62,7 +62,9 @@ describe('useFetchAllProductsQuery', () => {
         return <div>Loading...</div>;
       }
       if (result.isError) {
-        return <div>Error: {result.error.message}</div>;
+        const error = result.error;
+        const errorMessage = error && 'message' in error ? error.message : 'Unknown error occurred';
+        return <div>Error: {errorMessage}</div>;
       }
       return (
         <ul>
