@@ -175,4 +175,23 @@ describe('FormHookPerson', () => {
     expect(surnameInput.value).toBe('');
     expect(dateInput.value).toBe('');
   });
+  test('displays validation error when name field contains invalid value', async () => {
+    render(
+      <Provider store={store}>
+        <FormHookPerson />
+      </Provider>
+    );
+
+    const nameInput = screen.getByPlaceholderText('Enter you name');
+    const addButton = screen.getByRole('button', { name: /add card/i });
+
+    await act(async () => {
+      await userEvent.type(nameInput, 'john');
+      await userEvent.click(addButton);
+    });
+
+    expect(
+      screen.getByText('The name must begin with a capital letter and contain only letters')
+    ).toBeInTheDocument();
+  });
 });

@@ -8,13 +8,7 @@ describe('FormHookRadio', () => {
   const error = undefined;
 
   test('should render component', () => {
-    render(
-      <FormHookRadio
-        label={label}
-        type={type}
-        error={error}
-      />
-    );
+    render(<FormHookRadio label={label} type={type} error={error} />);
 
     const genderInputMale = screen.getByDisplayValue('male');
     const genderInputFemale = screen.getByDisplayValue('female');
