@@ -1,0 +1,8 @@
+@import '../../../../styles/style.scss';
+
+.btnLink {
+  padding: 10px 20px;
+  background-color: $mygreen;
+  @include adaptiveValue("font-size", 28,22 );
+  border: 1px solid $mainColor;
+}
