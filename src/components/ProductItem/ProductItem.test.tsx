@@ -8,7 +8,6 @@ import { Product } from '../../models/product';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-  // mock state for the store
   homeSlice: {
     totalPages: 5,
     page: 1,
