@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import cl from './CardPerson.module.scss';
-// import { FormPersonState } from 'components/FormPerson';
 import { FormValues } from 'components/FormPerson';
 
 interface CardPerson {

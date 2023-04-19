@@ -122,12 +122,4 @@ describe('homeSlice', () => {
 
     expect(state.isLoading).toEqual(isLoading);
   });
-
-  // it('should set the error', () => {
-  //   const error = 'Something went wrong';
-
-  //   const state = homeSlice.reducer(initialState, setError(error));
-
-  //   expect(state.error).toEqual(error);
-  // });
 });

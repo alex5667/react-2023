@@ -61,7 +61,6 @@ describe('HomeHook', () => {
       </Provider>
     );
 
-    // Wait for products to load
     await waitFor(() => expect(screen.queryByText(/loading/i)).not.toBeInTheDocument());
 
     const productsListElement = screen.getByTestId('products-list');
@@ -72,7 +71,6 @@ describe('HomeHook', () => {
     expect(screen.queryByText('Error')).toBeNull();
   });
   it('should render the loading spinner when data is being fetched', async () => {
-    // Arrange
     jest.mock('services/ProductsApi', () => ({
       productsApi: {
         useFetchAllProductsQuery: () => ({
@@ -90,10 +88,8 @@ describe('HomeHook', () => {
       </Provider>
     );
 
-    // Act
     await waitFor(() => screen.getByTestId('loading-spinner'));
 
-    // Assert
     expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
     expect(screen.queryByText('Error')).toBeNull();
     expect(screen.queryByText('Product 1')).toBeNull();
