@@ -2,10 +2,15 @@
 const { resolve } = require('path');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 const clientConfig = {
+  mode: 'production',
   target: 'web',
   entry: './src/index.tsx',
   output: {
@@ -24,12 +29,16 @@ const clientConfig = {
         exclude: /node_modules/,
       },
       {
-        test: /.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.scss$/,
+        use: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
       },
     ],
   },
@@ -46,10 +55,18 @@ const clientConfig = {
       'process.env.IS_PRODUCTION': JSON.stringify(isProduction),
       'typeof window': JSON.stringify('object'),
     }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      filename: 'index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    }),
   ],
 };
 
 const serverConfig = {
+  mode: 'production',
   target: 'node',
   entry: './src/server/server.tsx',
   output: {
@@ -88,4 +105,4 @@ const serverConfig = {
   ],
 };
 
-module.exports = typeof window === 'undefined' ? serverConfig : clientConfig;
+module.exports = [clientConfig, serverConfig];
