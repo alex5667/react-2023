@@ -1,0 +1,28 @@
+@use 'sass:math';
+
+@import '../../styles/style.scss';
+
+.mainContent {
+  padding-top: rem(20);
+}
+
+.formButtons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.contentForm {
+  display: flex;
+  background-color: #e3edf7;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 0.8rem;
+  box-shadow: 0.3rem 0.3rem 0.7rem -0.1rem rgba(0, 0, 0, 0.15),
+    -0.3rem -0.3rem 0.7rem -0.1rem rgba(255, 255, 255, 0.7);
+  padding: 40px;
+}

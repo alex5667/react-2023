@@ -1,0 +1,37 @@
+@use 'sass:math';
+
+.labelRadio{
+  width: 270px;
+  background-color: #e3edf7;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0.3rem 0.3rem 0.7rem -0.1rem rgba(0, 0, 0, 0.15),
+    -0.3rem -0.3rem 0.7rem -0.1rem rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  margin-bottom: 20px;
+
+}
+
+.inputRadio{
+  width: 20%;
+  margin-left: 10px;
+  background: #b7cadd;
+}
+.error {
+  width: 100%;
+  text-align: left;
+  padding: 5px;
+  font-size: 12px;
+  height: 18px;
+  color: red;
+}
+
+.noerror {
+  width: 100%;
+  height: 18px;
+}

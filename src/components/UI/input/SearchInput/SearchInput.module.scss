@@ -1,0 +1,15 @@
+@use 'sass:math';
+
+@import '../../../../styles/style.scss';
+
+.searchInput {
+  border: 1px solid $mygreen;
+  padding: rem(5);
+  text-align: left;
+  vertical-align: middle;
+  height: rem(36);
+  :focus {
+    outline: none;
+    background-color: #cdcdcd;
+  }
+}

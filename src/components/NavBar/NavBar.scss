@@ -1,0 +1,91 @@
+@use 'sass:math';
+
+@import "../../styles/style.scss";
+
+
+
+.header {
+
+  &__logo {
+
+
+  }
+
+
+  // .header__container
+
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    height: 100%;
+
+  }
+
+  // .header__menu
+
+  &__menu {
+  }
+}
+.menu {
+
+  // .menu__icon
+
+  &__icon {
+  }
+
+  // .menu__body
+
+  &__body {
+  }
+
+  // .menu__list
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: rem(10);
+    column-gap: rem(35);
+  }
+
+  // .menu__item
+
+  &__item {
+  }
+
+  // .menu__link
+
+  &__link {
+    &:hover,
+    &-active {
+      color: #fafafa;
+      text-decoration: underline;
+      text-underline-offset: 0.5em;
+      text-decoration-thickness: 3px;
+    }
+    &.active {
+      pointer-events: none;
+    }
+
+  }
+}
+.icon-menu {
+}
+
+.logo {
+  &__h1{
+    @include adaptiveValue("font-size", 32, 18);
+    font-weight: 700;
+    color: $mygreen;
+    filter: brightness(130%);
+
+  }
+}
+.page-name{
+  font-size: 28px;
+  color: #fafafa;
+}

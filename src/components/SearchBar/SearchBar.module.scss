@@ -1,0 +1,25 @@
+@use 'sass:math';
+
+@import '../../styles/style.scss';
+
+
+.searchFilter {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  padding-bottom: rem(10);
+  margin-bottom: rem(15);
+
+}
+
+
+.button{
+  margin-left: rem(15);
+  background: $mainColor;
+  color: $mygreen;
+  height: rem(36);
+  padding-left: rem(15);
+  padding-right: rem(15);
+  vertical-align: middle;
+  align-items: center;
+}

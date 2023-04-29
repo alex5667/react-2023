@@ -1,0 +1,9 @@
+@use 'sass:math';
+
+@import "../../styles/style.scss";
+
+
+.header{
+  background-color: $mainColor;
+  height: rem(72);
+}
