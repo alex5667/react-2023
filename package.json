@@ -15,16 +15,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run build:prod && node build/server.js && node build/client.js",
-    "build": "webpack --config webpack.config.js",
+    "start": "npm run build:dev  && node build/server.js && node build/client.js",
+    "build": "webpack --mode=production --node-env=production",
     "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "start:server": "webpack --config webpack.config.js && node build/server.js",
+    "start:server": "npm run build:dev && node build/server.js",
     "starts": "react-scripts start"
-
   },
   "eslintConfig": {
     "extends": [

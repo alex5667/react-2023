@@ -15,7 +15,7 @@ interface ExtendedStaticRouterProps extends StaticRouterProps {
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, '../../build')));
+app.use(express.static(path.resolve(__dirname, '../build')));
 
 app.get('/*', async (req, res) => {
   const context: ExtendedStaticRouterProps = { location: req.url };

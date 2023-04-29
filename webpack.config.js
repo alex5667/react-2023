@@ -75,8 +75,8 @@ const clientConfig = {
 };
 
 const serverConfig = {
-  mode: 'production',
-  target: 'node',
+  mode: 'development',
+  target: 'async-node',
   entry: './src/server/server.tsx',
   output: {
     filename: 'server.js',
