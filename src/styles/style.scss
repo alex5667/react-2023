@@ -1,24 +1,18 @@
+@use 'sass:math';
 
-@import "./base/mixins.scss";
-
-
-
-
-
-
+@import './base/mixins.scss';
 
 //&display=swap - добавить при подключении через плагин
-@import url("https://fonts.googleapis.com/css?family=League+Spartan:300,regular,500,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Lato:regular,500&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic&display=swap");
+@import url('https://fonts.googleapis.com/css?family=League+Spartan:300,regular,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:regular,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic&display=swap');
 
-
-$fontFamily: "Roboto";
-$fontSize: rem(16); 
+$fontFamily: 'Roboto';
+$fontSize: rem(16);
 
 // Основные цвета
-$mainColor: #221f1f; 
-$mygreen:#00bc52;
+$mainColor: #221f1f;
+$mygreen: #00bc52;
 
 // Настройки адаптивной сетки ===============================================================================================================================================================================================================================================================================================
 
@@ -35,17 +29,14 @@ $mobileSmall: em(479.98); // Телефоны S
 
 $responsiveType: 1;
 
-@import "./base/null.scss";
-
-
+@import './base/null.scss';
 
 body {
   background-color: #fff;
   .lock & {
-		overflow: hidden;
-		overscroll-behavior: none;
-	}
-
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
 }
 
 .wrapper {
@@ -58,33 +49,28 @@ body {
   }
 }
 
-
-
-  [class*="__container"] {
+[class*='__container'] {
+  @if ($maxWidthContainer>0) {
+    max-width: rem($containerWidth);
+    margin: 0 auto;
+  }
+  @if ($containerPadding>0) {
     @if ($maxWidthContainer>0) {
-      max-width: rem($containerWidth);
-      margin: 0 auto;
-    }
-    @if ($containerPadding>0) {
-      @if ($maxWidthContainer>0) {
-        padding: 0 rem(math.div($containerPadding, 2));
-      } @else {
-        @include adaptiveValue("padding-left", math.div($containerPadding, 2), 15);
-        @include adaptiveValue("padding-right", math.div($containerPadding, 2), 15);
-      }
+      padding: 0 rem(math.div($containerPadding, 2));
+    } @else {
+      @include adaptiveValue('padding-left', math.div($containerPadding, 2), 15);
+      @include adaptiveValue('padding-right', math.div($containerPadding, 2), 15);
     }
   }
+}
 
+// main=======================================================================================================
 
-  // main=======================================================================================================
-
-  .main{
-    &__container{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: nowrap;
-    }
+.main {
+  &__container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
-
-
+}

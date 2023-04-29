@@ -6,15 +6,25 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const cssLoaderOptions = {
+  loader: MiniCssExtractPlugin.loader,
+  options: {
+    publicPath: '/',
+  },
+};
 const clientConfig = {
   mode: 'production',
   target: 'web',
   entry: './src/index.tsx',
   output: {
-    filename: 'client.bundle.js',
+    filename: 'client.js',
     path: resolve(__dirname, 'build'),
   },
   module: {
@@ -30,15 +40,11 @@ const clientConfig = {
       },
       {
         test: /\.scss$/,
-        use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
+        use: [cssLoaderOptions, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        use: [isProduction ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
+        use: [cssLoaderOptions, 'css-loader'],
       },
     ],
   },
@@ -55,12 +61,15 @@ const clientConfig = {
       'process.env.IS_PRODUCTION': JSON.stringify(isProduction),
       'typeof window': JSON.stringify('object'),
     }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: 'index.html',
-    }),
     new MiniCssExtractPlugin({
-      filename: 'styles.css',
+      filename: 'style.css',
+      chunkFilename: '[name].[contenthash].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      concatenateModules: true,
     }),
   ],
 };
@@ -70,7 +79,7 @@ const serverConfig = {
   target: 'node',
   entry: './src/server/server.tsx',
   output: {
-    filename: 'server.bundle.js',
+    filename: 'server.js',
     path: resolve(__dirname, 'build'),
   },
   module: {
@@ -86,7 +95,11 @@ const serverConfig = {
       },
       {
         test: /\.scss$/,
-        use: 'null-loader',
+        use: [cssLoaderOptions, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.css$/,
+        use: [cssLoaderOptions, 'css-loader'],
       },
     ],
   },
@@ -101,6 +114,16 @@ const serverConfig = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.IS_PRODUCTION': JSON.stringify(isProduction),
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+      chunkFilename: '[name].[contenthash].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      concatenateModules: true,
     }),
   ],
 };

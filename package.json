@@ -6,24 +6,23 @@
     "@babel/plugin-syntax-jsx": "^7.21.4",
     "@reduxjs/toolkit": "^1.9.3",
     "react": "^18.2.0",
-    "react-apollo": "^3.1.5",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.7",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.9.0",
+    "react-router-dom": "^6.11.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run build:dev && node build/server.bundle.js && node build/client.bundle.js",
+    "start": "npm run build:prod && node build/server.js && node build/client.js",
     "build": "webpack --config webpack.config.js",
     "test": "react-scripts test --watchAll --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "start:server": "npm run build && node build/server.bundle.js"
+    "start:server": "webpack --config webpack.config.js && node build/server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +58,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-redux": "^7.1.25",
+    "@types/react-router-dom": "^5.3.3",
     "@types/redux-mock-store": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
@@ -84,7 +84,9 @@
     "lint-staged": "^13.2.0",
     "mini-css-extract-plugin": "^2.7.5",
     "msw": "^1.2.1",
+    "nodemon": "^2.0.22",
     "null-loader": "^4.0.1",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "prettier": "^2.8.4",
     "redux-mock-store": "^1.5.4",
     "sass": "^1.62.1",
