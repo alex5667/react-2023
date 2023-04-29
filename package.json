@@ -22,7 +22,9 @@
     "lint": "eslint .",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "start:server": "webpack --config webpack.config.js && node build/server.js"
+    "start:server": "webpack --config webpack.config.js && node build/server.js",
+    "starts": "react-scripts start"
+
   },
   "eslintConfig": {
     "extends": [
